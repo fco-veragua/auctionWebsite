@@ -1,5 +1,5 @@
 vich_uploader:
-    db_driver: orm
+    db_driver: orm # which persistence engine to use
 
     #mappings:
     #    products:
