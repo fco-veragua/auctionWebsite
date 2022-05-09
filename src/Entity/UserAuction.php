@@ -19,6 +19,10 @@ class UserAuction
     #[ORM\Column(type: 'integer')]
     private $bidValue;
 
+    #[ORM\ManyToOne(targetEntity: Auction::class, inversedBy: 'userAuctions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $auction;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +48,18 @@ class UserAuction
     public function setBidValue(int $bidValue): self
     {
         $this->bidValue = $bidValue;
+
+        return $this;
+    }
+
+    public function getAuction(): ?Auction
+    {
+        return $this->auction;
+    }
+
+    public function setAuction(?Auction $auction): self
+    {
+        $this->auction = $auction;
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AuctionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -46,6 +48,14 @@ class Auction
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'auctions')]
     #[ORM\JoinColumn(nullable: false)]
     private $category;
+
+    #[ORM\OneToMany(mappedBy: 'auction', targetEntity: UserAuction::class)]
+    private $userAuctions;
+
+    public function __construct()
+    {
+        $this->userAuctions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -170,6 +180,36 @@ class Auction
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserAuction>
+     */
+    public function getUserAuctions(): Collection
+    {
+        return $this->userAuctions;
+    }
+
+    public function addUserAuction(UserAuction $userAuction): self
+    {
+        if (!$this->userAuctions->contains($userAuction)) {
+            $this->userAuctions[] = $userAuction;
+            $userAuction->setAuction($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserAuction(UserAuction $userAuction): self
+    {
+        if ($this->userAuctions->removeElement($userAuction)) {
+            // set the owning side to null (unless already changed)
+            if ($userAuction->getAuction() === $this) {
+                $userAuction->setAuction(null);
+            }
+        }
 
         return $this;
     }
