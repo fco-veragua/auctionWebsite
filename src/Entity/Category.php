@@ -21,9 +21,13 @@ class Category
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Badge::class)]
     private $badges;
 
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Auction::class)]
+    private $auctions;
+
     public function __construct()
     {
         $this->badges = new ArrayCollection();
+        $this->auctions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,6 +71,36 @@ class Category
             // set the owning side to null (unless already changed)
             if ($badge->getCategory() === $this) {
                 $badge->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Auction>
+     */
+    public function getAuctions(): Collection
+    {
+        return $this->auctions;
+    }
+
+    public function addAuction(Auction $auction): self
+    {
+        if (!$this->auctions->contains($auction)) {
+            $this->auctions[] = $auction;
+            $auction->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAuction(Auction $auction): self
+    {
+        if ($this->auctions->removeElement($auction)) {
+            // set the owning side to null (unless already changed)
+            if ($auction->getCategory() === $this) {
+                $auction->setCategory(null);
             }
         }
 
