@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -50,6 +52,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $phoneNumber;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserAuction::class)]
+    private $userAuctions;
+
+    public function __construct()
+    {
+        $this->userAuctions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -225,6 +235,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhoneNumber(?int $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserAuction>
+     */
+    public function getUserAuctions(): Collection
+    {
+        return $this->userAuctions;
+    }
+
+    public function addUserAuction(UserAuction $userAuction): self
+    {
+        if (!$this->userAuctions->contains($userAuction)) {
+            $this->userAuctions[] = $userAuction;
+            $userAuction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserAuction(UserAuction $userAuction): self
+    {
+        if ($this->userAuctions->removeElement($userAuction)) {
+            // set the owning side to null (unless already changed)
+            if ($userAuction->getUser() === $this) {
+                $userAuction->setUser(null);
+            }
+        }
 
         return $this;
     }
