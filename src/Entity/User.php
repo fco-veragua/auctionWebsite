@@ -59,10 +59,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserBadge::class)]
     private $userBadges;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Auction::class)]
+    private $auctions;
+
     public function __construct()
     {
         $this->userAuctions = new ArrayCollection();
         $this->userBadges = new ArrayCollection();
+        $this->auctions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -297,6 +301,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($userBadge->getUser() === $this) {
                 $userBadge->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Auction>
+     */
+    public function getAuctions(): Collection
+    {
+        return $this->auctions;
+    }
+
+    public function addAuction(Auction $auction): self
+    {
+        if (!$this->auctions->contains($auction)) {
+            $this->auctions[] = $auction;
+            $auction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAuction(Auction $auction): self
+    {
+        if ($this->auctions->removeElement($auction)) {
+            // set the owning side to null (unless already changed)
+            if ($auction->getUser() === $this) {
+                $auction->setUser(null);
             }
         }
 

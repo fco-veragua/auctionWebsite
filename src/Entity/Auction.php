@@ -52,6 +52,10 @@ class Auction
     #[ORM\OneToMany(mappedBy: 'auction', targetEntity: UserAuction::class)]
     private $userAuctions;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'auctions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user;
+
     public function __construct()
     {
         $this->userAuctions = new ArrayCollection();
@@ -210,6 +214,18 @@ class Auction
                 $userAuction->setAuction(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
