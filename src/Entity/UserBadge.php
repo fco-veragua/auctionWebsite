@@ -20,6 +20,10 @@ class UserBadge
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
+    #[ORM\ManyToOne(targetEntity: Badge::class, inversedBy: 'userBadges')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $badge;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +49,18 @@ class UserBadge
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getBadge(): ?Badge
+    {
+        return $this->badge;
+    }
+
+    public function setBadge(?Badge $badge): self
+    {
+        $this->badge = $badge;
 
         return $this;
     }
