@@ -16,6 +16,10 @@ class UserBadge
     #[ORM\Column(type: 'integer')]
     private $amount;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'userBadges')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +33,18 @@ class UserBadge
     public function setAmount(int $amount): self
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
