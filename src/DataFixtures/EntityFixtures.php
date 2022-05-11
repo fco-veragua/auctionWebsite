@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Auction;
 use App\Entity\Badge;
 use App\Entity\Category;
 use App\Entity\User;
@@ -10,14 +11,14 @@ use Doctrine\Persistence\ObjectManager;
 
 class EntityFixtures extends Fixture
 {
-    public const CATEGORY_ID_REFERENCE = 'category';
-    public const CATEGORY_ID_REFERENCE2 = 'category2';
-    public const CATEGORY_ID_REFERENCE3 = 'category3';
+    // public const CATEGORY_ID_REFERENCE = 'category';
+    // public const CATEGORY_ID_REFERENCE2 = 'category2';
+    // public const CATEGORY_ID_REFERENCE3 = 'category3';
 
-    public const USER_ID_REFERENCE = 'user';
-    public const USER_ID_REFERENCE2 = 'user2';
-    public const USER_ID_REFERENCE3 = 'user3';
-    
+    // public const USER_ID_REFERENCE = 'user';
+    // public const USER_ID_REFERENCE2 = 'user2';
+    // public const USER_ID_REFERENCE3 = 'user3';
+
     public function load(ObjectManager $manager): void
     {
         // -- User -- //
@@ -86,7 +87,6 @@ class EntityFixtures extends Fixture
         $manager->persist($category3);
         // ================================= //
 
-        // ================================= //
         // -- Badge -- //
         // ================================= //
         $badge = new Badge();
@@ -126,14 +126,58 @@ class EntityFixtures extends Fixture
         $manager->persist($badge6);
         // ================================= //
 
+        // -- Auction -- //
+        // ================================= //
+        $auction = new Auction();
+        $auction->setCategory($category);
+        $auction->setUser($user);
+        $auction->setTitle('Painting False Menina');
+        $auction->setDescription('Replica of the Las Meninas Painting');
+        $auction->setState('Something worn');
+        $auction->setPrice(340);
+        $auction->setStartDate(new \DateTime('@' . strtotime('now')));
+        $auction->setClosingDate(new \DateTime('2022-05-14 00:00:00'));
+        $auction->setPhotosName('menina');
+        $auction->setUpdateAt(new \DateTime('@' . strtotime('now')));
+
+        $manager->persist($auction);
+
+        $auction2 = new Auction();
+        $auction2->setCategory($category2);
+        $auction2->setUser($user2);
+        $auction2->setTitle('The Hope Diamond');
+        $auction2->setDescription('The Hope Diamond but without curse');
+        $auction2->setState('In perfect state');
+        $auction2->setPrice(250000000);
+        $auction2->setStartDate(new \DateTime('@' . strtotime('now')));
+        $auction2->setClosingDate(new \DateTime('2022-05-14 00:00:00'));
+        $auction2->setPhotosName('hopediamond');
+        $auction2->setUpdateAt(new \DateTime('@' . strtotime('now')));
+
+        $manager->persist($auction2);
+
+        $auction3 = new Auction();
+        $auction3->setCategory($category3);
+        $auction3->setUser($user3);
+        $auction3->setTitle('The Da Vinci Code');
+        $auction3->setDescription('One of the first copies');
+        $auction3->setState('In perfect state');
+        $auction3->setPrice(25000);
+        $auction3->setStartDate(new \DateTime('@' . strtotime('now')));
+        $auction3->setClosingDate(new \DateTime('2022-05-14 00:00:00'));
+        $auction3->setPhotosName('davincicode');
+        $auction3->setUpdateAt(new \DateTime('@' . strtotime('now')));
+
+        $manager->persist($auction3);
+        // ================================= //
         $manager->flush();
 
-        $this->addReference(self::CATEGORY_ID_REFERENCE, $category);
-        $this->addReference(self::CATEGORY_ID_REFERENCE2, $category2);
-        $this->addReference(self::CATEGORY_ID_REFERENCE3, $category3);
+        // $this->addReference(self::CATEGORY_ID_REFERENCE, $category);
+        // $this->addReference(self::CATEGORY_ID_REFERENCE2, $category2);
+        // $this->addReference(self::CATEGORY_ID_REFERENCE3, $category3);
 
-        $this->addReference(self::USER_ID_REFERENCE, $user);
-        $this->addReference(self::USER_ID_REFERENCE2, $user2);
-        $this->addReference(self::USER_ID_REFERENCE3, $user3);
+        // $this->addReference(self::USER_ID_REFERENCE, $user);
+        // $this->addReference(self::USER_ID_REFERENCE2, $user2);
+        // $this->addReference(self::USER_ID_REFERENCE3, $user3);
     }
 }
