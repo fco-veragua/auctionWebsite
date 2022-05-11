@@ -6,6 +6,8 @@ use App\Entity\Auction;
 use App\Entity\Badge;
 use App\Entity\Category;
 use App\Entity\User;
+use App\Entity\UserAuction;
+use App\Entity\UserBadge;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -67,6 +69,21 @@ class EntityFixtures extends Fixture
         $user3->setPhoneNumber(777888999);
 
         $manager->persist($user3);
+
+        $user4 = new User();
+        $user4->setEmail('bidder1@gmail.com');
+        $user4->setPassword('bidder1');
+        $user4->setUserName('bidder1');
+        $user4->setName('bidder1');
+        $user4->setLastName('bidder1');
+        $user4->setBirthDate(new \DateTime('1991-11-1'));
+        $user4->setCountry('New York');
+        $user4->setPostalCode(10011);
+        $user4->setStreetAddress('bidder1');
+        $user4->setCompanyName('bidder1');
+        $user4->setPhoneNumber(122233344);
+
+        $manager->persist($user4);
         // ================================= //
 
         // -- Category -- //
@@ -169,6 +186,58 @@ class EntityFixtures extends Fixture
         $auction3->setUpdateAt(new \DateTime('@' . strtotime('now')));
 
         $manager->persist($auction3);
+        // ================================= //
+
+        // -- UserAuction -- //
+        // ================================= //
+        $userAuction = new UserAuction();
+        $userAuction->setBidDate(new \DateTime('@' . strtotime('now')));
+        $userAuction->setBidValue(350);
+        $userAuction->setAuction($auction);
+        $userAuction->setUser($user4);
+
+        $manager->persist($userAuction);
+
+        $userAuction2 = new UserAuction();
+        $userAuction2->setBidDate(new \DateTime('@' . strtotime('now')));
+        $userAuction2->setBidValue(251000000);
+        $userAuction2->setAuction($auction2);
+        $userAuction2->setUser($user4);
+
+        $manager->persist($userAuction2);
+
+        $userAuction3 = new UserAuction();
+        $userAuction3->setBidDate(new \DateTime('@' . strtotime('now')));
+        $userAuction3->setBidValue(26000);
+        $userAuction3->setAuction($auction3);
+        $userAuction3->setUser($user4);
+
+        $manager->persist($userAuction3);
+        // ================================= //
+
+        // -- UserBadge -- //
+        // ================================= //
+        $userBadge = new UserBadge();
+        $userBadge->setAmount(1);
+        $userBadge->setUser($user);
+        $userBadge->setBadge($badge);
+
+        $manager->persist($userBadge);
+
+        $userBadge2 = new UserBadge();
+        $userBadge2->setAmount(2);
+        $userBadge2->setUser($user2);
+        $userBadge2->setBadge($badge3);
+
+        $manager->persist($userBadge2);
+
+        $userBadge3 = new UserBadge();
+        $userBadge3->setAmount(3);
+        $userBadge3->setUser($user3);
+        $userBadge3->setBadge($badge5);
+
+        $manager->persist($userBadge3);
+
         // ================================= //
         $manager->flush();
 
