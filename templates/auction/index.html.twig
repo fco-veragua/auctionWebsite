@@ -7,8 +7,7 @@
 				<div class="col-lg-6 m-auto">
 					<h1 class="h1">Popular Auctions</h1>
 					<p>
-						Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-																																				                        Excepteur sint occaecat cupidatat non proident.
+						Bid for the category that best suits your needs
 					</p>
 				</div>
 			</div>
@@ -28,13 +27,13 @@
 										<i class="text-muted fa fa-star"></i>
 										<i class="text-muted fa fa-star"></i>
 									</li>
-									<li class="text-muted text-right">$240.00</li>
+									<li class="text-muted text-right">{{ auction.price }}$</li>
 								</ul>
-								<a href="shop-single.html" class="h2 text-decoration-none text-dark">Gym Weight</a>
+								<a href="shop-single.html" class="h2 text-decoration-none text-dark">{{ auction.title }}</a>
 								<p class="card-text">
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
+									{{ auction.description }}
 								</p>
-								<p class="text-muted">Reviews (24)</p>
+								<p class="text-muted">State ( {{ auction.state }} )</p>
 							</div>
 						</div>
 					</div>
