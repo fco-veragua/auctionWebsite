@@ -16,7 +16,7 @@ class AuctionController extends AbstractController
         $this->auctionRepository = $auctionRepository;
     }
 
-    #[Route('/auction', methods: ['GET'], name: 'app_auction')]
+    #[Route('/auction', methods: ['GET'], name: 'index')]
     public function index(): Response
     {
         $auctions = $this->auctionRepository->findAll();
@@ -26,19 +26,19 @@ class AuctionController extends AbstractController
             'auctions' => $auctions
         ]);
 
-        // missing add error if no auctions found (404...)
+        // !!! missing add error if no auctions found (404...)
     }
 
-    #[Route('/auction/{id}', methods: ['GET'], name: 'app_auction')]
+    #[Route('/auction/{id}', methods: ['GET'], name: 'show')]
     public function show($id): Response
     {
         $auction = $this->auctionRepository->find($id);
         // dd($auctions); // Filter the inner elements of doctrine
 
         return $this->render('auction/show.html.twig', [
-            'auctions' => $auctions
+            'auction' => $auction
         ]);
 
-        // missing add error if no auctions found (404...)
+        // !!! missing add error if no auctions found (404...)
     }
 }
