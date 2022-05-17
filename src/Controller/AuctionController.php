@@ -16,6 +16,8 @@ class AuctionController extends AbstractController
         $this->auctionRepository = $auctionRepository;
     }
 
+    // Get information
+
     #[Route('/auction', methods: ['GET'], name: 'index')]
     public function index(): Response
     {
@@ -38,6 +40,17 @@ class AuctionController extends AbstractController
         return $this->render('auction/show.html.twig', [
             'auction' => $auction
         ]);
+
+        // !!! missing add error if no auctions found (404...)
+    }
+
+    // Create new data
+    
+    // Render the template from which to create a new auction
+    #[Route('/sell', name: 'sell')]
+    public function sell(): Response
+    {
+        return $this->render('auction/sell.html.twig');
 
         // !!! missing add error if no auctions found (404...)
     }
