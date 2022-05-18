@@ -54,4 +54,6 @@ class AuctionController extends AbstractController
 
         // !!! missing add error if no auctions found (404...)
     }
+
+    
 }
