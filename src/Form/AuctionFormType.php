@@ -6,6 +6,7 @@ use App\Entity\Auction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class AuctionFormType extends AbstractType
 {
@@ -18,7 +19,16 @@ class AuctionFormType extends AbstractType
             ->add('price')
             ->add('startDate')
             ->add('closingDate')
-            ->add('photosName')
+            ->add('photosName', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'Remove Photos',
+                'download_label' => true,
+                'download_uri' => true,
+                'image_uri' => true,
+                'imagine_pattern' => null,
+                'asset_helper' => true,
+            ])
             ->add('updateAt')
             ->add('category')
             // ->add('user')
