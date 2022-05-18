@@ -19,7 +19,7 @@ class AuctionFormType extends AbstractType
             ->add('price')
             ->add('startDate')
             ->add('closingDate')
-            ->add('photosName', VichImageType::class, [
+            ->add('photosFile', VichImageType::class, [
                 'required' => false,
                 'allow_delete' => true,
                 'delete_label' => 'Remove Photos',
@@ -30,7 +30,7 @@ class AuctionFormType extends AbstractType
                 'asset_helper' => true,
             ])
             ->add('updateAt')
-            ->add('category')
+            //->add('category')
             // ->add('user')
         ;
     }

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Auction;
+use App\Form\AuctionFormType;
 use App\Repository\AuctionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,6 +33,19 @@ class AuctionController extends AbstractController
         // !!! missing add error if no auctions found (404...)
     }
 
+    #[Route('/auction/create', name: 'create')]
+    public function create(): Response
+    {
+        $auction = new Auction();
+
+        $form = $this->createForm(AuctionFormType::class, $auction);
+
+        return $this->render('auction/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+        // !!! missing add error if no auctions found (404...)
+    }
+    
     #[Route('/auction/{id}', methods: ['GET'], name: 'show')]
     public function show($id): Response
     {
@@ -45,7 +60,7 @@ class AuctionController extends AbstractController
     }
 
     // Create new data
-    
+
     // Render the template from which to create a new auction
     #[Route('/sell', name: 'sell')]
     public function sell(): Response
@@ -54,6 +69,4 @@ class AuctionController extends AbstractController
 
         // !!! missing add error if no auctions found (404...)
     }
-
-    
 }

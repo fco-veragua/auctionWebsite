@@ -11,6 +11,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: AuctionRepository::class)]
 #[Vich\Uploadable]
+/**
+ * @Vich\Uploadable // neccesary for bundle
+ */
 class Auction
 {
     #[ORM\Id]
@@ -37,6 +40,13 @@ class Auction
     private $closingDate;
 
     #[Vich\UploadableField(mapping: 'photos', fileNameProperty: 'photosName')]
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="photos", fileNameProperty="photosName")
+     * 
+     * @var File|null
+     */
     private $photosFile;
 
     #[ORM\Column(type: 'string')]
