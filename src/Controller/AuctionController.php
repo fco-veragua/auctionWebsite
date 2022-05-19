@@ -11,6 +11,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use PHPStan\PhpDocParser\Ast\Type\ThisTypeNode;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 //use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -110,6 +111,17 @@ class AuctionController extends AbstractController
         // dd($id);
         // exit;
         // !!! missing add error if no auctions found (404...)
+    }
+
+    // DELETE auction
+    #[Route('/auction/delete/{id}', methods: ['GET', 'DELETE'], name: 'delete')]
+    public function delete($id): Response
+    {
+        $auction = $this->auctionRepository->find($id);
+        $this->toPersist->remove($auction);
+        $this->toPersist->flush();
+
+        return $this->redirectToRoute('index');
     }
 
     #[Route('/auction/{id}', methods: ['GET'], name: 'show')]
