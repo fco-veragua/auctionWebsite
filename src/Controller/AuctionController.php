@@ -38,6 +38,10 @@ class AuctionController extends AbstractController
     {
         $auction = new Auction();
 
+        $auction->setStartDate(new \DateTime('@' . strtotime('now'))); // Default date
+        $auction->setUpdateAt(new \DateTime('@' . strtotime('now')));
+        // $auction->setCategory($category);
+
         $form = $this->createForm(AuctionFormType::class, $auction);
 
         return $this->render('auction/create.html.twig', [
