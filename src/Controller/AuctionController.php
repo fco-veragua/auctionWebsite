@@ -6,8 +6,10 @@ use App\Entity\Auction;
 use App\Form\AuctionFormType;
 use App\Repository\AuctionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+//use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class AuctionController extends AbstractController
 {
@@ -34,16 +36,24 @@ class AuctionController extends AbstractController
     }
 
     #[Route('/auction/create', name: 'create')]
-    public function create(): Response
+    public function create(Request $request): Response
     {
         $auction = new Auction();
 
-        $auction->setStartDate(new \DateTime('@' . strtotime('now'))); // Default date
-        $auction->setUpdateAt(new \DateTime('@' . strtotime('now')));
+        //$auction->setStartDate(new \DateTime('@' . strtotime('now'))); // Default date
+        //$auction->setUpdateAt(new \DateTime('@' . strtotime('now')));
         // $auction->setCategory($category);
 
         $form = $this->createForm(AuctionFormType::class, $auction);
+        
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newAuction = $form->getData();
+            dd($newAuction);
+            exit;
+        }
+        
         return $this->render('auction/create.html.twig', [
             'form' => $form->createView()
         ]);
