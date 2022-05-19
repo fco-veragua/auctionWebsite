@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Auction;
+use App\Entity\Category;
 use App\Form\AuctionFormType;
 use App\Repository\AuctionRepository;
+use App\Repository\CategoryRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 //use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,13 +39,14 @@ class AuctionController extends AbstractController
     }
 
     #[Route('/auction/create', name: 'create')]
-    public function create(Request $request): Response
+    public function create(Request $request, ManagerRegistry $doctrine): Response
     {
         $auction = new Auction();
 
-        //$auction->setStartDate(new \DateTime('@' . strtotime('now'))); // Default date
-        //$auction->setUpdateAt(new \DateTime('@' . strtotime('now')));
-        // $auction->setCategory($category);
+        $auction->setStartDate(new \DateTime('@' . strtotime('now'))); // Default date
+        $auction->setUpdateAt(new \DateTime('@' . strtotime('now')));
+        $category = $doctrine ->getRepository(Category::class)->find(1); // Art Category
+        $auction->setCategory($category);
 
         $form = $this->createForm(AuctionFormType::class, $auction);
         
@@ -50,8 +54,8 @@ class AuctionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $newAuction = $form->getData();
-            dd($newAuction);
-            exit;
+            // dd($newAuction);
+            // exit;
         }
         
         return $this->render('auction/create.html.twig', [
