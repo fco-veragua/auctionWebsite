@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Auction;
 use App\Entity\Category;
+use App\Entity\User;
 use App\Form\AuctionFormType;
 use App\Repository\AuctionRepository;
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 //use Symfony\Component\BrowserKit\Request;
@@ -16,11 +19,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AuctionController extends AbstractController
 {
+    private $toPersist;
     private $auctionRepository;
 
-    public function __construct(AuctionRepository $auctionRepository)
+    public function __construct(AuctionRepository $auctionRepository, EntityManagerInterface $toPersist)
     {
         $this->auctionRepository = $auctionRepository;
+        $this->toPersist = $toPersist;
     }
 
     // Get information
@@ -43,27 +48,40 @@ class AuctionController extends AbstractController
     {
         $auction = new Auction();
 
+        // DEFAULT VALUES
         $auction->setStartDate(new \DateTime('@' . strtotime('now'))); // Default date
+
         $auction->setUpdateAt(new \DateTime('@' . strtotime('now')));
-        $category = $doctrine ->getRepository(Category::class)->find(1); // Art Category
+
+        $auction->setPhotosName('AuctionTest');
+
+        $category = $doctrine->getRepository(Category::class)->find(1); // Art Category
         $auction->setCategory($category);
 
+        $user = $doctrine->getRepository(User::class)->find(1);
+        $auction->setUser($user); // DELETE AFTER USER LOGIN
+
         $form = $this->createForm(AuctionFormType::class, $auction);
-        
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $newAuction = $form->getData();
             // dd($newAuction);
             // exit;
+
+            $this->toPersist->persist($newAuction);
+            $this->toPersist->flush();
+
+            return $this->redirectToRoute('index');
         }
-        
+
         return $this->render('auction/create.html.twig', [
             'form' => $form->createView()
         ]);
         // !!! missing add error if no auctions found (404...)
     }
-    
+
     #[Route('/auction/{id}', methods: ['GET'], name: 'show')]
     public function show($id): Response
     {
