@@ -43,6 +43,7 @@ class AuctionController extends AbstractController
         // !!! missing add error if no auctions found (404...)
     }
 
+    // CREATE auction
     #[Route('/auction/create', name: 'create')]
     public function create(Request $request, ManagerRegistry $doctrine): Response
     {
@@ -79,6 +80,35 @@ class AuctionController extends AbstractController
         return $this->render('auction/create.html.twig', [
             'form' => $form->createView()
         ]);
+        // !!! missing add error if no auctions found (404...)
+    }
+
+    // UPDATE auction
+    #[Route('/auction/edit/{id}', name: 'edit')]
+    public function edit($id, Request $request): Response
+    {
+        $auction = $this->auctionRepository->find($id);
+        $form = $this->createForm(AuctionFormType::class, $auction);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $auction->setTitle($form->get('title')->getData());
+            $auction->setDescription($form->get('description')->getData());
+            $auction->setState($form->get('state')->getData());
+            $auction->setPrice($form->get('price')->getData());
+            $auction->setClosingDate($form->get('closingDate')->getData());
+
+            $this->toPersist->flush();
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('auction/edit.html.twig', [
+            'auction' => $auction,
+            'form' => $form->createView()
+        ]);
+        // dd($id);
+        // exit;
         // !!! missing add error if no auctions found (404...)
     }
 
