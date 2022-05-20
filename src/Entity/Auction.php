@@ -8,9 +8,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+// use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AuctionRepository::class)]
 #[Vich\Uploadable]
+/**
+ * @Vich\Uploadable // neccesary for bundle
+ */
 class Auction
 {
     #[ORM\Id]
@@ -37,6 +41,13 @@ class Auction
     private $closingDate;
 
     #[Vich\UploadableField(mapping: 'photos', fileNameProperty: 'photosName')]
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="photos", fileNameProperty="photosName")
+     * 
+     * @var File|null
+     */
     private $photosFile;
 
     #[ORM\Column(type: 'string')]
