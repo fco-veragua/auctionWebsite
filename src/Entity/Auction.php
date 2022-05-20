@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints as Assert;
+// use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AuctionRepository::class)]
 #[Vich\Uploadable]
@@ -23,37 +23,21 @@ class Auction
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    /**
-     * @Assert\NotBlank
-     * @Assert\Length(min=5)
-     */
     private $title;
 
     #[ORM\Column(type: 'string', length: 255)]
-    /**
-     * @Assert\NotBlank
-     */
     private $description;
 
     #[ORM\Column(type: 'string', length: 255)]
-    /**
-     * @Assert\NotBlank
-     */
     private $state;
 
     #[ORM\Column(type: 'integer')]
-    /**
-     * @Assert\NotBlank
-     */
     private $price;
 
     #[ORM\Column(type: 'datetime')]
     private $startDate;
 
     #[ORM\Column(type: 'datetime')]
-    /**
-     * @Assert\NotBlank
-     */
     private $closingDate;
 
     #[Vich\UploadableField(mapping: 'photos', fileNameProperty: 'photosName')]
