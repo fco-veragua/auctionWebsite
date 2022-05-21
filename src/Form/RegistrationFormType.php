@@ -11,6 +11,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -18,6 +21,60 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email')
+            ->add('userName', TextType::class, [
+                'attr' => array(
+                    'class' => '',
+                    'placeholder' => 'Enter User Name...'
+                )
+            ])
+            ->add('name', TextType::class, [
+                'attr' => array(
+                    'class' => '',
+                    'placeholder' => 'Enter Name...'
+                )
+            ])
+            ->add('lastName', TextType::class, [
+                'attr' => array(
+                    'class' => '',
+                    'placeholder' => 'Enter Last Name...'
+                )
+            ])
+            ->add('birthDate', DateType::class, [
+                'attr' => array(
+                    'class' => '',
+                    'placeholder' => ''
+                )
+            ])
+            ->add('country', TextType::class, [
+                'attr' => array(
+                    'class' => '',
+                    'placeholder' => 'Enter Country...'
+                )
+            ])
+            ->add('postalCode', IntegerType::class, [
+                'attr' => array(
+                    'class' => '',
+                    'placeholder' => ''
+                )
+            ])
+            ->add('streetAddress', TextType::class, [
+                'attr' => array(
+                    'class' => '',
+                    'placeholder' => 'Enter Street Address...'
+                )
+            ])
+            ->add('companyName', TextType::class, [
+                'attr' => array(
+                    'class' => '',
+                    'placeholder' => 'Enter Company Name...'
+                )
+            ])
+            ->add('phoneNumber', IntegerType::class, [
+                'attr' => array(
+                    'class' => '',
+                    'placeholder' => ''
+                )
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
