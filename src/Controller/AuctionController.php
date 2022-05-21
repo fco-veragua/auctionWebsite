@@ -31,7 +31,7 @@ class AuctionController extends AbstractController
 
     // Get information
 
-    #[Route('/', methods: ['GET'], name: 'index')]
+    #[Route('/auction', methods: ['GET'], name: 'index')]
     public function index(): Response
     {
         $auctions = $this->auctionRepository->findAll();
