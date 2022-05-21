@@ -68,7 +68,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light shadow">
 				<div class="container d-flex justify-content-between align-items-center">
 
-					<a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+					<a class="navbar-brand text-success logo h1 align-self-center" href="/">
 						auctionWebsite
 					</a>
 
@@ -80,20 +80,27 @@
 						<div class="flex-fill">
 							<ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
 								<li class="nav-item">
-									<a class="nav-link" href="index.html">Home</a>
+									<a class="nav-link" href="/">Home</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="about.html">About</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="shop.html">Shop</a>
-								</li>
-								<li class="nav-item">
 									<a class="nav-link" href="contact.html">Contact</a>
 								</li>
+								{% if app.user %}
+									<li class="nav-item">
+										<a href="/sell" class="btn btn-success btn-lg fw-bold text-white" role="button">Sell</a>
+									</li>
+								{% endif %}
 								<li class="nav-item">
-									<a href="/sell" class="btn btn-success btn-lg fw-bold text-white" role="button">Sell</a>
+									<a href="/{{ app.user ? 'logout' : 'login' }}" class="btn btn-primary btn-lg fw-bold text-white" role="button">{{ app.user ? 'Logout': 'Login' }}</a>
 								</li>
+								{% if not app.user %}
+									<li class="nav-item">
+										<a href="/register" class="btn btn-warning btn-lg fw-bold text-white" role="button">Register</a>
+									</li>
+								{% endif %}
 							</ul>
 						</div>
 						<div class="navbar align-self-center d-flex">
@@ -242,7 +249,7 @@
 							<div class="col-12">
 								<p class="text-left text-light">
 									Copyright &copy; 2021 Fco Veragua 
-																																																																																																																																																                            | Designed by
+																																																																																																																																																																																				                            | Designed by
 									<a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
 								</p>
 							</div>
