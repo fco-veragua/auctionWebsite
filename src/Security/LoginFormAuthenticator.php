@@ -58,7 +58,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         // $verified = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
         // $isVerified = $verified->isVerified();
 
-        // if ($isVerified === 0) {
+        // if (false === $isVerified) {
         //     return new RedirectResponse($this->urlGenerator->generate('logout'));
         //     return new RedirectResponse($this->urlGenerator->generate('app_verify_email_user'));
         // }
