@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,11 +53,15 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         // For example:
         // return new RedirectResponse($this->urlGenerator->generate('some_route'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-        $verification = $request->get('is_verified');
 
-        if (null !== $verification) {
-            return new RedirectResponse($this->urlGenerator->generate('index'));
-        }
+        // $email = $request->request->get('email', '');
+        // $verified = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+        // $isVerified = $verified->isVerified();
+
+        // if ($isVerified === 0) {
+        //     return new RedirectResponse($this->urlGenerator->generate('logout'));
+        //     return new RedirectResponse($this->urlGenerator->generate('app_verify_email_user'));
+        // }
 
         return new RedirectResponse($this->urlGenerator->generate('index'));
     }

@@ -58,7 +58,7 @@ class RegistrationController extends AbstractController
             // do anything else you need here, like send an email
 
             // $this->addFlash('verification', 'Please, go to your mailbox to verify your email account');
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('app_verify_email_user');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -96,5 +96,12 @@ class RegistrationController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
-    
+    // Template to verify user
+    #[Route('/verify/email/user', name: 'app_verify_email_user')]
+    public function verifyUser(): Response
+    {
+        return $this->render('security/verification_alert.html.twig');
+
+        // !!! missing add error if no auctions found (404...)
+    }
 }
