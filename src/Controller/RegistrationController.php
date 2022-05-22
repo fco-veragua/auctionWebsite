@@ -36,7 +36,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
-            $userPasswordHasher->hashPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
@@ -46,7 +46,9 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
                 (new TemplatedEmail())
                     ->from(new Address('asir1.fvc@gmail.com', 'Auction Website Bot'))
                     ->to($user->getEmail())
@@ -55,6 +57,7 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
+            // $this->addFlash('verification', 'Please, go to your mailbox to verify your email account');
             return $this->redirectToRoute('index');
         }
 
@@ -88,8 +91,10 @@ class RegistrationController extends AbstractController
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        // $this->addFlash('success', 'Your email address has been verified.');
 
-        return $this->redirectToRoute('app_register');
+        return $this->redirectToRoute('app_login');
     }
+
+    
 }
