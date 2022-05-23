@@ -7,6 +7,7 @@ use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\Security\Core\Security;
+use Doctrine\Persistence\ManagerRegistry;
+
+use function PHPUnit\Framework\equalTo;
 
 class RegistrationController extends AbstractController
 {
@@ -96,7 +101,7 @@ class RegistrationController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
-    // Template to verify user
+    // Template to inform the user that they must confirm their email
     #[Route('/verify/email/user', name: 'app_verify_email_user')]
     public function verifyUser(): Response
     {

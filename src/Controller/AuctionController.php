@@ -55,13 +55,13 @@ class AuctionController extends AbstractController
 
         $auction->setUpdateAt(new \DateTime('@' . strtotime('now')));
 
-        $auction->setPhotosName('AuctionTest');
+        // $auction->setPhotosName('AuctionTest');
 
         $category = $doctrine->getRepository(Category::class)->find(1); // Art Category
         $auction->setCategory($category);
 
-        $user = $doctrine->getRepository(User::class)->find(1);
-        $auction->setUser($user); // DELETE AFTER USER LOGIN
+        $user = $this->getUser(); // current User
+        $auction->setUser($user);
 
         $form = $this->createForm(AuctionFormType::class, $auction);
 
