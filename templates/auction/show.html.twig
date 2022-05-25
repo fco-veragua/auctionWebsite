@@ -182,7 +182,7 @@ document.getElementById("timer").innerHTML = "CLOSED";
 							</ul>
 							<div class="row pb-3">
 								<div class="col d-grid">
-									<a href="" class="btn btn-success btn-lg fw-bold text-white" role="button">Bid Up</a>
+									<button class="btn btn-success btn-lg fw-bold text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Bid Up</button>
 								</div>
 								<div class="col d-grid">
 									<a href="/auction/edit/{{ auction.id }}" class="btn btn-warning btn-lg fw-bold text-white" role="button">Edit Auction</a>
@@ -196,6 +196,7 @@ document.getElementById("timer").innerHTML = "CLOSED";
 						</div>
 					</div>
 				</div>
+				{# This div contains the bids #}
 				<div class="col-lg-3 mt-5">
 					<div class="card">
 						<div class="card-body">
@@ -210,7 +211,9 @@ document.getElementById("timer").innerHTML = "CLOSED";
 									</p>
 								</li>
 							</ul>
-							<hr></div>
+							<hr>
+							{{ include('bid/_modalBid.html.twig') }}
+							</div>
 					</div>
 				</div>
 			</section>
