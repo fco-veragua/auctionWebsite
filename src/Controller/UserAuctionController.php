@@ -8,11 +8,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserAuctionController extends AbstractController
 {
-    #[Route('/user/auction', name: 'app_user_auction')]
-    public function index(): Response
-    {
-        return $this->render('user_auction/index.html.twig', [
-            'controller_name' => 'UserAuctionController',
-        ]);
-    }
+    // #[Route('/user/auction', name: 'app_user_auction')]
+    // public function index(): Response
+    // {
+    //     return $this->render('user_auction/index.html.twig', [
+    //         'controller_name' => 'UserAuctionController',
+    //     ]);
+    // }
+
+    
+
 }
