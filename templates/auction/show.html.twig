@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-	{% block moreJavascript %}
+	{% block countDownTimer %}
 		<script>
 			var countDownDate = new Date("{{ auction.closingDate | date('M d, Y H:i:s') }}").getTime();
 
@@ -182,7 +182,7 @@ document.getElementById("timer").innerHTML = "CLOSED";
 							</ul>
 							<div class="row pb-3">
 								<div class="col d-grid">
-									<button class="btn btn-success btn-lg fw-bold text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Bid Up</button>
+									<button class="btn btn-success btn-lg fw-bold text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="obtainBids({{ auction.id }})">Bid Up</button>
 								</div>
 								<div class="col d-grid">
 									<a href="/auction/edit/{{ auction.id }}" class="btn btn-secondary btn-lg fw-bold text-white" role="button">Edit Auction</a>
@@ -212,6 +212,7 @@ document.getElementById("timer").innerHTML = "CLOSED";
 								</li>
 							</ul>
 							<hr>
+							{# Add bid template - containing the modal #}
 							{{ include('bid/_modalBid.html.twig') }}
 						</div>
 					</div>

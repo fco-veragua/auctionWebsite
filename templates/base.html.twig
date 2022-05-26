@@ -94,7 +94,7 @@
 									</li>
 								{% endif %}
 								<li class="nav-item">
-									<a href="/{{ app.user ? 'logout' : 'login' }}" class="btn btn-success btn-lg fw-bold text-white" role="button">{{ app.user ? 'Logout': 'Login' }}</a>
+									{{ app.user ? '<a href="/logout" class="btn btn-secondary btn-lg fw-bold text-white" role="button">Logout</a>' : '<a href="/login" class="btn btn-success btn-lg fw-bold text-white" role="button">Login</a>' }}
 								</li>
 								{% if not app.user %}
 									<li class="nav-item">
@@ -241,7 +241,7 @@
 							<div class="col-12">
 								<p class="text-left text-light">
 									Copyright &copy; 2021 Fco Veragua 
-																																																																																																																																																																																																																																	                            | Designed by
+																																																																																																																																																																																																																																																												                            | Designed by
 									<a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
 								</p>
 							</div>
