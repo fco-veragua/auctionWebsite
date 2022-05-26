@@ -30,13 +30,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success" onclick="obtainBids({{ auction.id }})">Bid Up</button>
+        <button type="button" class="btn btn-success">Bid Up</button>
+        <a href="" class="btn btn-danger btn-lg fw-bold text-white" role="button">Delete Auction</a>
       </div>
     </div>
   </div>
 </div>
-{% block FOSJsRoutingBundle %}
-  <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
-	<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-  <script src="{{ asset('assets/js/ajaxCall.js') }}"></script>
-{% endblock %}
