@@ -191,8 +191,6 @@ document.getElementById("timer").innerHTML = "CLOSED";
 									<a href="/auction/delete/{{ auction.id }}" class="btn btn-danger btn-lg fw-bold text-white" role="button">Delete Auction</a>
 								</div>
 							</div>
-
-
 						</div>
 					</div>
 				</div>
@@ -200,8 +198,7 @@ document.getElementById("timer").innerHTML = "CLOSED";
 				<div class="col-lg-3 mt-5">
 					<div class="card">
 						<div class="card-body">
-							<hr>
-							<ul class="list-inline">
+							<ul class="list-inline border border-success">
 								<li class="list-inline-item">
 									<h4>Close in:</h4>
 								</li>
@@ -212,8 +209,23 @@ document.getElementById("timer").innerHTML = "CLOSED";
 								</li>
 							</ul>
 							<hr>
-							{# Add bid template - containing the modal #}
-							{{ include('bid/_modalBid.html.twig') }}
+							{# SHOW BIDS #}
+							{% for userAuction in userAuctions %}
+								<ul class="list-inline">
+									<li class="list-inline-item">
+										<h6>{{ userAuction.user.userName }}</h6>
+									</li>
+									<li class="list-inline-item text-success">
+										<h6>{{ userAuction.bidDate | date('M d, Y H:i:s') }}</h6>
+									</li>
+									<li class="list-inline-item">
+										<p class="text-muted">
+											<strong>{{ userAuction.bidValue }}$</strong>
+										</p>
+									</li>
+								</ul>
+								<hr>
+							{% endfor %}
 						</div>
 					</div>
 				</div>

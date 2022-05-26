@@ -7,6 +7,7 @@ use App\Entity\Category;
 use App\Entity\User;
 use App\Form\AuctionFormType;
 use App\Repository\AuctionRepository;
+use App\Repository\UserAuctionRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,9 +23,11 @@ class AuctionController extends AbstractController
 {
     private $toPersist;
     private $auctionRepository;
+    private $userAuctionRepository;
 
-    public function __construct(AuctionRepository $auctionRepository, EntityManagerInterface $toPersist)
+    public function __construct(UserAuctionRepository $userAuctionRepository, AuctionRepository $auctionRepository, EntityManagerInterface $toPersist)
     {
+        $this->userAuctionRepository = $userAuctionRepository;
         $this->auctionRepository = $auctionRepository;
         $this->toPersist = $toPersist;
     }
@@ -128,10 +131,16 @@ class AuctionController extends AbstractController
     public function show($id): Response
     {
         $auction = $this->auctionRepository->find($id);
+        $userAuctions = $auction->getUserAuctions();
+
         // dd($auctions); // Filter the inner elements of doctrine
 
+        //$userName = $auction->getUser();
+
         return $this->render('auction/show.html.twig', [
-            'auction' => $auction
+            'auction' => $auction,
+            'userAuctions' => $userAuctions
+
         ]);
 
         // !!! missing add error if no auctions found (404...)
