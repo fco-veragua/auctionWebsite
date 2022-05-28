@@ -58,7 +58,8 @@ class UserAuctionController extends AbstractController // Controller for bids
     public function bidup($id, Request $request, ManagerRegistry $doctrine): Response
     {
         $userAuction = new UserAuction();
-        $auction = $this->auctionRepository->find($id);
+        $auction = $this->auctionRepository->find($id); // current auction
+        $userAuctions = $auction->getUserAuctions(); // current bids
 
         // DEFAULT VALUES
         $userAuction->setBidDate(new \DateTime('@' . strtotime('now'))); // Default date
@@ -73,7 +74,38 @@ class UserAuctionController extends AbstractController // Controller for bids
 
         $form->handleRequest($request);
 
+        $formContain = $form->get('bidValue')->getData();
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // if (null === $userAuctions) { // if there are no bids
+            //     if ($form->get('bidValue') >= $formContain) {
+            //         $newUserAuction = $form->getData();
+            //         // dd($newAuction);
+            //         // exit;
+
+            //         $this->toPersist->persist($newUserAuction);
+            //         $this->toPersist->flush();
+
+            //         $this->addFlash('notice', 'You have placed the bid!');
+            //     } else {
+            //         $this->addFlash('bid_1', 'The value of the bid, must be greater than or equal to the starting price');
+            //     }
+            // } else {
+            //     if ($form->get('bidValue') > $maxBid) {
+            //         $newUserAuction = $form->getData();
+            //         // dd($newAuction);
+            //         // exit;
+
+            //         $this->toPersist->persist($newUserAuction);
+            //         $this->toPersist->flush();
+
+            //         $this->addFlash('notice', 'You have placed the bid!');
+            //     } else {
+            //         $this->addFlash('bid_2', 'The value of the bid, must be greater than last Bid');
+            //     }
+            // }
+
             $newUserAuction = $form->getData();
             // dd($newAuction);
             // exit;
@@ -81,11 +113,18 @@ class UserAuctionController extends AbstractController // Controller for bids
             $this->toPersist->persist($newUserAuction);
             $this->toPersist->flush();
 
-            return $this->redirectToRoute('/auction/edit/{id}');
+            $this->addFlash(
+                'notice',
+                'You have placed the bid!'
+
+            );
+
+            //return $this->redirectToRoute('/auction/{id}');
         }
 
         return $this->render('bid/bids.html.twig', [
             'form' => $form->createView(),
+            'userAuctions' => $userAuctions,
             'auction' => $auction
         ]);
         // !!! missing add error if no auctions found (404...)
