@@ -102,6 +102,11 @@ class EntityFixtures extends Fixture
         $category3->setCategoryName('Books');
 
         $manager->persist($category3);
+
+        $category4 = new Category();
+        $category4->setCategoryName('Music');
+
+        $manager->persist($category4);
         // ================================= //
 
         // -- Badge -- //
