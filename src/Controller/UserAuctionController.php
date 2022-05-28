@@ -14,15 +14,18 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\UserAuctionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Repository\AuctionRepository;
 
 use function PHPUnit\Framework\throwException;
 
-class UserAuctionController extends AbstractController
+class UserAuctionController extends AbstractController // Controller for bids
 {
     private $userAuctionRepository;
+    private $auctionRepository;
 
-    public function __construct(UserAuctionRepository $userAuctionRepository, EntityManagerInterface $toPersist)
+    public function __construct(AuctionRepository $auctionRepository, UserAuctionRepository $userAuctionRepository, EntityManagerInterface $toPersist)
     {
+        $this->auctionRepository = $auctionRepository;
         $this->userAuctionRepository = $userAuctionRepository;
         $this->toPersist = $toPersist;
     }
@@ -34,23 +37,28 @@ class UserAuctionController extends AbstractController
     //     ]);
     // }
 
-    #[Route('/auction/{id}', methods: ['GET'], name: 'bids')]
+    #[Route('/bids/{id}', methods: ['GET'], name: 'bids')]
     public function index($id): Response
     {
         $userAuctions = $this->userAuctionRepository->findAll($id);
+
+
+
         // dd($auctions); // Filter the inner elements of doctrine
 
         return $this->render('bid/bids.html.twig', [
-            'userAuctions' => $userAuctions
+            'userAuctions' => $userAuctions,
+
         ]);
 
         // !!! missing add error if no auctions found (404...)
     }
 
-    #[Route('/auction/{id}', name: 'bidup')]
+    #[Route('/bids/create/{id}', name: 'bidup')] // Added auction id
     public function bidup($id, Request $request, ManagerRegistry $doctrine): Response
     {
         $userAuction = new UserAuction();
+        $auction = $this->auctionRepository->find($id);
 
         // DEFAULT VALUES
         $userAuction->setBidDate(new \DateTime('@' . strtotime('now'))); // Default date
@@ -73,12 +81,13 @@ class UserAuctionController extends AbstractController
             $this->toPersist->persist($newUserAuction);
             $this->toPersist->flush();
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('/auction/edit/{id}');
         }
 
-        // return $this->render('bid/bids.html.twig', [
-        //     'form' => $form->createView()
-        // ]);
+        return $this->render('bid/bids.html.twig', [
+            'form' => $form->createView(),
+            'auction' => $auction
+        ]);
         // !!! missing add error if no auctions found (404...)
     }
 }

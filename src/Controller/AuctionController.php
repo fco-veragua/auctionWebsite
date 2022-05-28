@@ -135,12 +135,9 @@ class AuctionController extends AbstractController
 
         // dd($auctions); // Filter the inner elements of doctrine
 
-        //$userName = $auction->getUser();
-
         return $this->render('auction/show.html.twig', [
             'auction' => $auction,
             'userAuctions' => $userAuctions
-
         ]);
 
         // !!! missing add error if no auctions found (404...)

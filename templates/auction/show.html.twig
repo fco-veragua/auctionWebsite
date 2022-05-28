@@ -182,7 +182,7 @@ document.getElementById("timer").innerHTML = "CLOSED";
 							</ul>
 							<div class="row pb-3">
 								<div class="col d-grid">
-									<button class="btn btn-success btn-lg fw-bold text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Bid Up</button>
+									<a href="/bids/create/{{ auction.id }}" class="btn btn-success btn-lg fw-bold text-white" role="button">Bid Up</a>
 								</div>
 								<div class="col d-grid">
 									<a href="/auction/edit/{{ auction.id }}" class="btn btn-secondary btn-lg fw-bold text-white" role="button">Edit Auction</a>
@@ -198,7 +198,7 @@ document.getElementById("timer").innerHTML = "CLOSED";
 				<div class="col-lg-3 mt-5">
 					<div class="card">
 						<div class="card-body">
-							<ul class="list-inline border border-success">
+							<ul class="list-inline bg-light">
 								<li class="list-inline-item">
 									<h4>Close in:</h4>
 								</li>
@@ -208,10 +208,9 @@ document.getElementById("timer").innerHTML = "CLOSED";
 									</p>
 								</li>
 							</ul>
-							<hr>
-							{# SHOW BIDS #}
-							{% for userAuction in userAuctions %}
-								<ul class="list-inline">
+							{# SHOW BIDS (only the last five) #}
+							{% for userAuction in userAuctions|slice(-5) %}
+								<ul class="list-inline border border-2 border-success rounded">
 									<li class="list-inline-item">
 										<h6>{{ userAuction.user.userName }}</h6>
 									</li>
@@ -224,7 +223,6 @@ document.getElementById("timer").innerHTML = "CLOSED";
 										</p>
 									</li>
 								</ul>
-								<hr>
 							{% endfor %}
 						</div>
 					</div>

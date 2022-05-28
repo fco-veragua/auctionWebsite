@@ -6,6 +6,7 @@ use App\Entity\UserAuction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class BidFormType extends AbstractType
 {
@@ -13,7 +14,12 @@ class BidFormType extends AbstractType
     {
         $builder
             //->add('bidDate')
-            ->add('bidValue')
+            ->add('bidValue', IntegerType::class, [
+                'attr' => array(
+                    'class' => '',
+                    'placeholder' => 'Enter the value of your bid...'
+                )
+            ])
             //->add('auction')
             //->add('user')
         ;

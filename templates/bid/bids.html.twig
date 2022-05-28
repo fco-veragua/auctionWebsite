@@ -1,1 +1,43 @@
-
+{% extends 'base.html.twig' %}
+{% block body %}
+	<section class="bg-success">
+		<div class="container pb-5">
+			<div class="row">
+				<div class="col-lg-7 mt-5">
+					<div class="card mb-3">
+						<div class="card-header">
+							<h2>{{ auction.title }}</h2>
+						</div>
+						<img class="card-img img-fluid" src="../../auctions/photos/{{ auction.photosName }}" alt="Card image cap" id="product-detail">
+					</div>
+				</div>
+				<!-- col end -->
+				{# This div contains the bids #}
+				<div class="col-lg-5 mt-5">
+					<div class="card">
+						<div
+							class="card-body">
+							{# FORM TO CREATE BIDS #}
+							{{ form_start(form) }}
+							{{ form_widget(form) }}
+							<div class="col-12">
+								<button type="submit" class="btn btn-success">Bid Up</button>
+							</div>
+							{{ form_end(form) }}
+						</div>
+					</div>
+					<div class="card">
+						<div
+							class="card-body">
+							LAST BID
+						</div>
+					</div>
+					<div class="card">
+						<div
+							class="card-body">
+							MINIMUN BIDVALUE
+						</div>
+					</div>
+				</div>
+			</section>
+		{% endblock %}
