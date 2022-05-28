@@ -6,6 +6,7 @@ use App\Entity\Auction;
 use App\Entity\Category;
 use App\Entity\User;
 use App\Form\AuctionFormType;
+use App\Form\AuctionJewelFormType;
 use App\Repository\AuctionRepository;
 use App\Repository\UserAuctionRepository;
 use App\Repository\CategoryRepository;
@@ -87,6 +88,46 @@ class AuctionController extends AbstractController
         // !!! missing add error if no auctions found (404...)
     }
 
+    // CREATE Jewel auction
+    #[Route('/auction/createjewel', name: 'createjewel')]
+    public function createjewel(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $auction = new Auction();
+
+        // DEFAULT VALUES
+        $auction->setStartDate(new \DateTime('@' . strtotime('now'))); // Default date
+
+        $auction->setUpdateAt(new \DateTime('@' . strtotime('now')));
+
+        // $auction->setPhotosName('AuctionTest');
+
+        $category = $doctrine->getRepository(Category::class)->find(2); // Jewels Category
+        $auction->setCategory($category);
+
+        $user = $this->getUser(); // current User
+        $auction->setUser($user);
+
+        $form = $this->createForm(AuctionJewelFormType::class, $auction);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newAuction = $form->getData();
+            // dd($newAuction);
+            // exit;
+
+            $this->toPersist->persist($newAuction);
+            $this->toPersist->flush();
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('auction/createjewel.html.twig', [
+            'form' => $form->createView()
+        ]);
+        // !!! missing add error if no auctions found (404...)
+    }
+
     // UPDATE auction
     #[Route('/auction/edit/{id}', name: 'edit')]
     public function edit($id, Request $request): Response
@@ -108,6 +149,35 @@ class AuctionController extends AbstractController
         }
 
         return $this->render('auction/edit.html.twig', [
+            'auction' => $auction,
+            'form' => $form->createView()
+        ]);
+        // dd($id);
+        // exit;
+        // !!! missing add error if no auctions found (404...)
+    }
+
+    // UPDATE Jewel auction
+    #[Route('/auction/editjewel/{id}', name: 'editjewel')]
+    public function editjewel($id, Request $request): Response
+    {
+        $auction = $this->auctionRepository->find($id);
+        $form = $this->createForm(AuctionJewelFormType::class, $auction);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $auction->setTitle($form->get('title')->getData());
+            $auction->setDescription($form->get('description')->getData());
+            $auction->setState($form->get('state')->getData());
+            $auction->setPrice($form->get('price')->getData());
+            $auction->setClosingDate($form->get('closingDate')->getData());
+
+            $this->toPersist->flush();
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('auction/editjewel.html.twig', [
             'auction' => $auction,
             'form' => $form->createView()
         ]);
