@@ -185,7 +185,20 @@ document.getElementById("timer").innerHTML = "CLOSED";
 									<a href="/bids/create/{{ auction.id }}" class="btn btn-success btn-lg fw-bold text-white" role="button">Bid Up</a>
 								</div>
 								<div class="col d-grid">
-									<a href="/auction/edit/{{ auction.id }}" class="btn btn-secondary btn-lg fw-bold text-white" role="button">Edit Auction</a>
+									{% set cat = '' %}
+
+									{% if auction.category.id == 1 %}
+										{% set cat = 'edit' %}
+									{% elseif auction.category.id == 2 %}
+										{% set cat = 'editjewel' %}
+									{% elseif auction.category.id == 3 %}
+										{% set cat = 'editbook' %}
+									{% else %}
+										{% set cat = 'editmusic' %}
+									{% endif %}
+
+									<a href="/auction/{{ cat }}/{{ auction.id }}" class="btn btn-secondary btn-lg fw-bold text-white" role="button">Edit Auction</a>
+
 								</div>
 								<div class="col d-grid">
 									<a href="/auction/delete/{{ auction.id }}" class="btn btn-danger btn-lg fw-bold text-white" role="button">Delete Auction</a>
