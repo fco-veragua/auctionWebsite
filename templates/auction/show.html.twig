@@ -1,10 +1,38 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+	{% block countDownTimer %}
+		<script>
+			var countDownDate = new Date("{{ auction.closingDate | date('M d, Y H:i:s') }}").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function () { // Get today's date and time
+var now = new Date().getTime();
+
+// Find the distance between now and the count down date
+var distance = countDownDate - now;
+
+// Time calculations for days, hours, minutes and seconds
+var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+// Output the result in an element with id="timer"
+document.getElementById("timer").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+// If the count down is over, write some text
+if (distance < 0) {
+clearInterval(x);
+document.getElementById("timer").innerHTML = "CLOSED";
+}
+}, 1000);
+		</script>
+	{% endblock %}
 	<!-- Open Content -->
 	<section class="bg-light">
 		<div class="container pb-5">
 			<div class="row">
-				<div class="col-lg-5 mt-5">
+				<div class="col-lg-4 mt-5">
 					<div class="card mb-3">
 						<img class="card-img img-fluid" src="../auctions/photos/{{ auction.photosName }}" alt="Card image cap" id="product-detail">
 					</div>
@@ -105,7 +133,7 @@
 					</div>
 				</div>
 				<!-- col end -->
-				<div class="col-lg-7 mt-5">
+				<div class="col-lg-5 mt-5">
 					<div class="card">
 						<div class="card-body">
 							<h1 class="h2">{{ auction.title }}</h1>
@@ -152,74 +180,66 @@
 								<li>Dolore magna aliqua</li>
 								<li>Excepteur sint</li>
 							</ul>
-
-							{# <form action="" method="GET">
-															<input type="hidden" name="product-title" value="Activewear">
-															<div class="row">
-																<div class="col-auto">
-																	<ul class="list-inline pb-3">
-																		<li class="list-inline-item">Size :
-																			<input type="hidden" name="product-size" id="product-size" value="S">
-																		</li>
-																		<li class="list-inline-item">
-																			<span class="btn btn-success btn-size">S</span>
-																		</li>
-																		<li class="list-inline-item">
-																			<span class="btn btn-success btn-size">M</span>
-																		</li>
-																		<li class="list-inline-item">
-																			<span class="btn btn-success btn-size">L</span>
-																		</li>
-																		<li class="list-inline-item">
-																			<span class="btn btn-success btn-size">XL</span>
-																		</li>
-																	</ul>
-																</div>
-																<div class="col-auto">
-																	<ul class="list-inline pb-3">
-																		<li class="list-inline-item text-right">
-																			Quantity
-																			<input type="hidden" name="product-quanity" id="product-quanity" value="1">
-																		</li>
-																		<li class="list-inline-item">
-																			<span class="btn btn-success" id="btn-minus">-</span>
-																		</li>
-																		<li class="list-inline-item">
-																			<span class="badge bg-secondary" id="var-value">1</span>
-																		</li>
-																		<li class="list-inline-item">
-																			<span class="btn btn-success" id="btn-plus">+</span>
-																		</li>
-																	</ul>
-																</div>
-															</div>
-															<div class="row pb-3">
-																<div class="col d-grid">
-																	<button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
-																</div>
-																<div class="col d-grid">
-																	<button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
-																</div>
-															</div>
-														</form> #}
 							<div class="row pb-3">
 								<div class="col d-grid">
-									<a href="" class="btn btn-success btn-lg fw-bold text-white" role="button">Bid Up</a>
+									<a href="/bids/create/{{ auction.id }}" class="btn btn-success btn-lg fw-bold text-white" role="button">Bid Up</a>
 								</div>
 								<div class="col d-grid">
-									<a href="/auction/edit/{{ auction.id }}" class="btn btn-warning btn-lg fw-bold text-white" role="button">Edit Auction</a>
+									{% set cat = '' %}
+
+									{% if auction.category.id == 1 %}
+										{% set cat = 'edit' %}
+									{% elseif auction.category.id == 2 %}
+										{% set cat = 'editjewel' %}
+									{% elseif auction.category.id == 3 %}
+										{% set cat = 'editbook' %}
+									{% else %}
+										{% set cat = 'editmusic' %}
+									{% endif %}
+
+									<a href="/auction/{{ cat }}/{{ auction.id }}" class="btn btn-secondary btn-lg fw-bold text-white" role="button">Edit Auction</a>
+
 								</div>
 								<div class="col d-grid">
 									<a href="/auction/delete/{{ auction.id }}" class="btn btn-danger btn-lg fw-bold text-white" role="button">Delete Auction</a>
 								</div>
 							</div>
-
-
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Close Content -->
-{% endblock %}
+				{# This div contains the bids #}
+				<div class="col-lg-3 mt-5">
+					<div class="card">
+						<div class="card-body">
+							<ul class="list-inline bg-light">
+								<li class="list-inline-item">
+									<h4>Close in:</h4>
+								</li>
+								<li class="list-inline-item">
+									<p class="text-muted">
+										<strong id="timer"></strong>
+									</p>
+								</li>
+							</ul>
+							{# SHOW BIDS (only the last five) #}
+							{% for userAuction in userAuctions|slice(-5) %}
+								<ul class="list-inline border border-2 border-success rounded">
+									<li class="list-inline-item">
+										<h6>{{ userAuction.user.userName }}</h6>
+									</li>
+									<li class="list-inline-item text-success">
+										<h6>{{ userAuction.bidDate | date('M d, Y H:i:s') }}</h6>
+									</li>
+									<li class="list-inline-item">
+										<p class="text-muted">
+											<strong>{{ userAuction.bidValue }}$</strong>
+										</p>
+									</li>
+								</ul>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Close Content -->
+		{% endblock %}

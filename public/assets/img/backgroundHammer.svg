@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <filter id="ae">
+   <feGaussianBlur stdDeviation="0.5"/>
+  </filter>
+  <filter id="z">
+   <feGaussianBlur stdDeviation="0.5"/>
+  </filter>
+  <filter id="af">
+   <feGaussianBlur stdDeviation="0.5"/>
+  </filter>
+  <filter id="y">
+   <feGaussianBlur stdDeviation="0.5"/>
+  </filter>
+  <filter id="aa">
+   <feGaussianBlur stdDeviation="0.5"/>
+  </filter>
+  <filter id="x">
+   <feGaussianBlur stdDeviation="0.5"/>
+  </filter>
+  <filter id="ag">
+   <feGaussianBlur stdDeviation="0.5"/>
+  </filter>
+  <filter id="ab">
+   <feGaussianBlur stdDeviation="0.5"/>
+  </filter>
+  <filter id="ac">
+   <feGaussianBlur stdDeviation="0.5"/>
+  </filter>
+  <filter id="ad">
+   <feGaussianBlur stdDeviation="0.5"/>
+  </filter>
+  <linearGradient id="ah" x1=".97266" x2=".015625" y1=".082031" y2=".58984">
+   <stop stop-color="#9e5311" offset="0"/>
+   <stop stop-color="#5b320d" offset="1"/>
+  </linearGradient>
+  <linearGradient id="ai" x1=".10938" x2=".90234" y1=".85547" y2=".054688">
+   <stop stop-color="#774617" offset="0"/>
+   <stop stop-color="#a05d1e" offset="1"/>
+  </linearGradient>
+  <linearGradient id="s">
+   <stop offset="0"/>
+   <stop stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="u" x1=".50514" x2="1.2289" y1="-.76441" y2="-.76441" xlink:href="#s"/>
+  <linearGradient id="t" x1=".042969" x2=".96484" y1=".91406" y2=".050781">
+   <stop stop-color="#7f440e" offset="0"/>
+   <stop stop-color="#935113" offset="1"/>
+  </linearGradient>
+  <linearGradient id="v" x1="-.99579" x2=".53836" y1="-.71245" y2="-.71245" xlink:href="#s"/>
+  <linearGradient id="aj" x1=".34917" x2=".84946" y1="-.22302" y2="-.22302" xlink:href="#s"/>
+  <linearGradient id="w" x1="-.2803" x2="2.195" y1="-4.1517" y2="-4.1517" xlink:href="#s"/>
+ </defs>
+ <g filter="url(#x)">
+  <path d="m94.541 250.81c-39.811 0-200.88 104.16-83.176 83.907 26.044 0-35.462 84.697 57.984 42.927 15.377 0 116.83 34.738 120.65 89.34 2.927 41.77 18.334 11.022 92.856 38.868 74.52 27.846 11.237 146.77 262.01-30.748 15.969-15.664 39.648-57.418-41.094-87.881s-409.23-136.41-409.23-136.41z" fill="url(#u)"/>
+  <path d="m551.85 253.66s277.3-106.04 273.35-132.44c-6.6647-44.514-217.06 44.669-279.16 105.58 0 11.601 5.8071 26.856 5.8071 26.856z" fill="url(#v)"/>
+  <path d="m489.57 400s-117.57 73.365-143.62 71.151c-87.423-7.4273 47.195-82.752 53.693-89.128 6.4983-6.3753 89.932 17.977 89.932 17.977" fill="url(#w)"/>
+ </g>
+ <g stroke="#b2b2b2">
+  <path d="m449.04 145.9l40.364 1.3194c5.7176-16.826 30.269-21.115 43.726-7.9175 28.508 0 241.54-66.935 275.75-52.622 30.061 14.246 22.616 34.498 5.7658 51.024-37.781 37.058-256.63 36.911-266.04 58.346-64.221 11.877-99.564-50.15-99.564-50.15z" fill="url(#ai)" filter="url(#ae)"/>
+  <path d="m82.216 121.25c-34.686 71.803 10.013 129.57 22.627 155.9-180.59-46.023-52.435-335.35 109.5-228.97-11.311 3.5003-94.604-4.6184-132.13 73.068v-1.5e-5z" fill="url(#t)" filter="url(#af)"/>
+  <path d="m101.55 136.99c-34.686 71.803-9.322 113.84 3.2918 140.16-119.45-54.107-5.5414-284.39 117.13-225.69-11.313 3.5016-82.892 7.8392-120.42 85.526z" filter="url(#ag)"/>
+  <path d="m164.94 146.97c-37.593 78.246 86.71 152.38 40.412 167.23-90.671 29.096-152.34-81.648-108.96-179.25 38.09-85.693 166.23-130.96 219.1-27.55 21.289 41.647-109.87-45.093-150.55 39.564z" fill="url(#t)" filter="url(#y)"/>
+  <path d="m350.13 121.97c-75.033 19.581-131.48 215.39-100.5 212.02l-69.526-31.06c-116.34-22.957-10.326-304.52 121.84-201.21l48.186 20.256z" fill="#ff7f00" filter="url(#z)"/>
+  <path d="m332.69 229.56c-62.639 144.27 48.748 179.07 20.75 173.03-128.59 11.075-132.09-113.64-97.505-194.3 31.391-73.221 133.43-154.51 218.77-54.73-58.366-5.8108-104.62-10.131-142.01 75.997z" fill="url(#t)" filter="url(#aa)"/>
+  <path d="m372.84 252.96c-32.958 68.058 25.519 164.82-19.631 149.13-44.507-15.462-62.93-88.975-34.002-159.7 39.865-97.461 110.41-107.49 153.5-88.446 42.614 18.836-64.207 25.386-99.865 99.018z" filter="url(#ab)"/>
+  <path d="m408.12 450.38c-151.38-48.109-13.251-374.32 138.08-281.96 81.798 65.648-206.34 172.6-138.08 281.96z" fill="url(#t)" filter="url(#ac)"/>
+  <path d="m558.02 348.17c-37.593 78.246-102.61 118.14-148.69 102.63-45.42-15.288-47.087-93.944-12.067-174.41 31.792-73.047 100.27-129.88 144.04-110.49 43.288 19.177 57.394 97.61 16.72 182.27z" fill="url(#ah)" filter="url(#ad)"/>
+ </g>
+</svg>

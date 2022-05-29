@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<section class="bg-success bg-gradient">
+		<div class="container">
+			<div class="row align-items-center py-5">
+				<div class="col-md-4 text-white">
+					<h1>Music
+						<i class="fa fa-music fa-lg"></i>
+						<h2 class="text-danger fw-bold">EDITING AUCTION</h2>
+					</h1>
+					<img src="../../assets/img/music.svg" alt="About Hero">
+				</div>
+				<div class="col-md-8 text-white">
+					{# <form class="row g-3"> #}
+					{{ form_start(form) }}
+					{# <div class="col-md-6">
+																	<label for="title" class="form-label">Title</label>
+																	<input type="text" class="form-control" id="title" placeholder="Title">
+																</div>
+																<div class="col-md-6">
+																	<label for="state" class="form-label">State</label>
+																	<input type="text" class="form-control" id="state" placeholder="What state is your product in?">
+																</div>
+																<div class="col-12">
+																	<label for="description" class="form-label">Description</label>
+																	<textarea class="form-control" id="description" rows="3"></textarea>
+																</div>
+																<div class="col-12">
+																	<label for="photo" class="form-label">We want to see your product</label>
+																	<input class="form-control" type="file" id="photo">
+																</div>
+																<div class="col-md-6">
+																	<label for="price" class="form-label">Price</label>
+																	<input type="number" class="form-control" id="price" placeholder="Auction value">
+																</div>
+																<div class="col-md-6">
+																	<label for="closingDate" class="form-label">Closing Date</label>
+																	<input type="date" class="form-control" id="closingDate">
+																</div>
+																<div class="col-12">
+																	<button type="submit" class="btn btn-primary">Create Auction</button>
+																</div> #}
+					{{ form_widget(form) }}
+					<div class="col-12">
+						<button type="submit" class="btn btn-primary">Edit</button>
+					</div>
+					{{ form_end(form) }}
+					{# </form> #}
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

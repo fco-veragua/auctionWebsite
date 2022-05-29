@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<section class="bg-success">
+		{% for message in app.flashes('notice') %}
+			<div class="flas-notice">
+				<h3 class="txt-success fw-bold">{{ message }}</h3>
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('bid_1') %}
+			<div class="flas-notice">
+				<h3 class="txt-success fw-bold">{{ message }}</h3>
+			</div>
+		{% endfor %}
+		<div class="container pb-5">
+			<div class="row">
+				<div class="col-lg-7 mt-5">
+					<div class="card mb-3">
+						<div class="card-header">
+							<h2>{{ auction.title }}</h2>
+						</div>
+						<img class="card-img img-fluid" src="../../auctions/photos/{{ auction.photosName }}" alt="Card image cap" id="product-detail">
+					</div>
+				</div>
+				<!-- col end -->
+				{# This div contains the bids #}
+				<div class="col-lg-5 mt-5">
+					<div class="card">
+						<div
+							class="card-body">
+							{# FORM TO CREATE BIDS #}
+							{{ form_start(form) }}
+							{{ form_widget(form) }}
+							<div class="col-12">
+								<button type="submit" class="btn btn-success">Bid Up</button>
+							</div>
+							{{ form_end(form) }}
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-body">
+							LAST BID
+						</div>
+					</div>
+					<div class="card">
+						{% for userAuction in userAuctions|slice(-1) %}
+							<div class="card-body">
+								<h6 class="fw-bold fst-italic bg-light">LAST BID</h6>
+								<p class="card-text text-success fw-bold">
+									{{ userAuction.user.userName }}
+								</p>
+								<h6>{{ userAuction.bidDate | date('M d, Y H:i:s') }}</h6>
+								<h5 class="text-muted">
+									<strong>{{ userAuction.bidValue }}$</strong>
+								</h5>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</section>
+			<section class="bg-light">
+				<div class="container py-5">
+					<div class="row text-center py-3">
+						<div class="col-lg-6 m-auto">
+							<h1 class="h1">All bids ({{ userAuctions|length }})</h1>
+							{# counting array values #}
+							<p>
+								Find all the bids placed on the product
+							</p>
+						</div>
+					</div>
+					<div class="row">
+						{% for userAuction in userAuctions %}
+							<div class="col-12 col-md-4 mb-4">
+								<div class="card h-100">
+									<div class="card-body">
+										<p class="card-text text-success fw-bold">
+											{{ userAuction.user.userName }}
+										</p>
+										<h6>{{ userAuction.bidDate | date('M d, Y H:i:s') }}</h6>
+										<h5 class="text-muted">
+											<strong>{{ userAuction.bidValue }}$</strong>
+										</h5>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</section>
+		{% endblock %}

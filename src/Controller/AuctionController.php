@@ -6,7 +6,11 @@ use App\Entity\Auction;
 use App\Entity\Category;
 use App\Entity\User;
 use App\Form\AuctionFormType;
+use App\Form\AuctionJewelFormType;
+use App\Form\AuctionBookFormType;
+use App\Form\AuctionMusicFormType;
 use App\Repository\AuctionRepository;
+use App\Repository\UserAuctionRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,9 +26,11 @@ class AuctionController extends AbstractController
 {
     private $toPersist;
     private $auctionRepository;
+    private $userAuctionRepository;
 
-    public function __construct(AuctionRepository $auctionRepository, EntityManagerInterface $toPersist)
+    public function __construct(UserAuctionRepository $userAuctionRepository, AuctionRepository $auctionRepository, EntityManagerInterface $toPersist)
     {
+        $this->userAuctionRepository = $userAuctionRepository;
         $this->auctionRepository = $auctionRepository;
         $this->toPersist = $toPersist;
     }
@@ -35,6 +41,8 @@ class AuctionController extends AbstractController
     public function index(): Response
     {
         $auctions = $this->auctionRepository->findAll();
+
+
         // dd($auctions); // Filter the inner elements of doctrine
 
         return $this->render('auction/index.html.twig', [
@@ -55,13 +63,13 @@ class AuctionController extends AbstractController
 
         $auction->setUpdateAt(new \DateTime('@' . strtotime('now')));
 
-        $auction->setPhotosName('AuctionTest');
+        // $auction->setPhotosName('AuctionTest');
 
         $category = $doctrine->getRepository(Category::class)->find(1); // Art Category
         $auction->setCategory($category);
 
-        $user = $doctrine->getRepository(User::class)->find(1);
-        $auction->setUser($user); // DELETE AFTER USER LOGIN
+        $user = $this->getUser(); // current User
+        $auction->setUser($user);
 
         $form = $this->createForm(AuctionFormType::class, $auction);
 
@@ -79,6 +87,126 @@ class AuctionController extends AbstractController
         }
 
         return $this->render('auction/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+        // !!! missing add error if no auctions found (404...)
+    }
+
+    // CREATE Jewel auction
+    #[Route('/auction/createjewel', name: 'createjewel')]
+    public function createjewel(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $auction = new Auction();
+
+        // DEFAULT VALUES
+        $auction->setStartDate(new \DateTime('@' . strtotime('now'))); // Default date
+
+        $auction->setUpdateAt(new \DateTime('@' . strtotime('now')));
+
+        // $auction->setPhotosName('AuctionTest');
+
+        $category = $doctrine->getRepository(Category::class)->find(2); // Jewels Category
+        $auction->setCategory($category);
+
+        $user = $this->getUser(); // current User
+        $auction->setUser($user);
+
+        $form = $this->createForm(AuctionJewelFormType::class, $auction);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newAuction = $form->getData();
+            // dd($newAuction);
+            // exit;
+
+            $this->toPersist->persist($newAuction);
+            $this->toPersist->flush();
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('auction/createjewel.html.twig', [
+            'form' => $form->createView()
+        ]);
+        // !!! missing add error if no auctions found (404...)
+    }
+
+    // CREATE Book auction
+    #[Route('/auction/createbook', name: 'createbook')]
+    public function createbook(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $auction = new Auction();
+
+        // DEFAULT VALUES
+        $auction->setStartDate(new \DateTime('@' . strtotime('now'))); // Default date
+
+        $auction->setUpdateAt(new \DateTime('@' . strtotime('now')));
+
+        // $auction->setPhotosName('AuctionTest');
+
+        $category = $doctrine->getRepository(Category::class)->find(3); // Books Category
+        $auction->setCategory($category);
+
+        $user = $this->getUser(); // current User
+        $auction->setUser($user);
+
+        $form = $this->createForm(AuctionBookFormType::class, $auction);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newAuction = $form->getData();
+            // dd($newAuction);
+            // exit;
+
+            $this->toPersist->persist($newAuction);
+            $this->toPersist->flush();
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('auction/createbook.html.twig', [
+            'form' => $form->createView()
+        ]);
+        // !!! missing add error if no auctions found (404...)
+    }
+
+    // CREATE Music auction
+    #[Route('/auction/createmusic', name: 'createmusic')]
+    public function createmusic(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $auction = new Auction();
+
+        // DEFAULT VALUES
+        $auction->setStartDate(new \DateTime('@' . strtotime('now'))); // Default date
+
+        $auction->setUpdateAt(new \DateTime('@' . strtotime('now')));
+
+        // $auction->setPhotosName('AuctionTest');
+
+        $category = $doctrine->getRepository(Category::class)->find(4); // Music Category
+        $auction->setCategory($category);
+
+        $user = $this->getUser(); // current User
+        $auction->setUser($user);
+
+        $form = $this->createForm(AuctionMusicFormType::class, $auction);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newAuction = $form->getData();
+            // dd($newAuction);
+            // exit;
+
+            $this->toPersist->persist($newAuction);
+            $this->toPersist->flush();
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('auction/createmusic.html.twig', [
             'form' => $form->createView()
         ]);
         // !!! missing add error if no auctions found (404...)
@@ -113,6 +241,93 @@ class AuctionController extends AbstractController
         // !!! missing add error if no auctions found (404...)
     }
 
+    // UPDATE Jewel auction
+    #[Route('/auction/editjewel/{id}', name: 'editjewel')]
+    public function editjewel($id, Request $request): Response
+    {
+        $auction = $this->auctionRepository->find($id);
+        $form = $this->createForm(AuctionJewelFormType::class, $auction);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $auction->setTitle($form->get('title')->getData());
+            $auction->setDescription($form->get('description')->getData());
+            $auction->setState($form->get('state')->getData());
+            $auction->setPrice($form->get('price')->getData());
+            $auction->setClosingDate($form->get('closingDate')->getData());
+
+            $this->toPersist->flush();
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('auction/editjewel.html.twig', [
+            'auction' => $auction,
+            'form' => $form->createView()
+        ]);
+        // dd($id);
+        // exit;
+        // !!! missing add error if no auctions found (404...)
+    }
+
+    // UPDATE Book auction
+    #[Route('/auction/editbook/{id}', name: 'editbook')]
+    public function editbook($id, Request $request): Response
+    {
+        $auction = $this->auctionRepository->find($id);
+        $form = $this->createForm(AuctionBookFormType::class, $auction);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $auction->setTitle($form->get('title')->getData());
+            $auction->setDescription($form->get('description')->getData());
+            $auction->setState($form->get('state')->getData());
+            $auction->setPrice($form->get('price')->getData());
+            $auction->setClosingDate($form->get('closingDate')->getData());
+
+            $this->toPersist->flush();
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('auction/editbook.html.twig', [
+            'auction' => $auction,
+            'form' => $form->createView()
+        ]);
+        // dd($id);
+        // exit;
+        // !!! missing add error if no auctions found (404...)
+    }
+
+    // UPDATE Music auction
+    #[Route('/auction/editmusic/{id}', name: 'editmusic')]
+    public function editmusic($id, Request $request): Response
+    {
+        $auction = $this->auctionRepository->find($id);
+        $form = $this->createForm(AuctionMusicFormType::class, $auction);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $auction->setTitle($form->get('title')->getData());
+            $auction->setDescription($form->get('description')->getData());
+            $auction->setState($form->get('state')->getData());
+            $auction->setPrice($form->get('price')->getData());
+            $auction->setClosingDate($form->get('closingDate')->getData());
+
+            $this->toPersist->flush();
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('auction/editmusic.html.twig', [
+            'auction' => $auction,
+            'form' => $form->createView()
+        ]);
+        // dd($id);
+        // exit;
+        // !!! missing add error if no auctions found (404...)
+    }
+
     // DELETE auction
     #[Route('/auction/delete/{id}', methods: ['GET', 'DELETE'], name: 'delete')]
     public function delete($id): Response
@@ -128,10 +343,13 @@ class AuctionController extends AbstractController
     public function show($id): Response
     {
         $auction = $this->auctionRepository->find($id);
+        $userAuctions = $auction->getUserAuctions();
+
         // dd($auctions); // Filter the inner elements of doctrine
 
         return $this->render('auction/show.html.twig', [
-            'auction' => $auction
+            'auction' => $auction,
+            'userAuctions' => $userAuctions
         ]);
 
         // !!! missing add error if no auctions found (404...)

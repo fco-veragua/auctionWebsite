@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "73227ddb921fa8a9186f7d0750b6299d",
+    "content-hash": "994ee37cbfc6928821e7c9a2d422c0cc",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1514,6 +1514,72 @@
                 }
             ],
             "time": "2022-03-02T09:29:19+00:00"
+        },
+        {
+            "name": "friendsofsymfony/jsrouting-bundle",
+            "version": "3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle.git",
+                "reference": "396b0711a585e7687e50bf80cb8b5ca659246bf0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/396b0711a585e7687e50bf80cb8b5ca659246bf0",
+                "reference": "396b0711a585e7687e50bf80cb8b5ca659246bf0",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0",
+                "symfony/console": "^5.4|^6.0",
+                "symfony/framework-bundle": "^5.4|^6.0",
+                "symfony/serializer": "^5.4|^6.0.1",
+                "willdurand/jsonp-callback-validator": "~1.1|^2.0"
+            },
+            "require-dev": {
+                "symfony/expression-language": "^5.4|^6.0",
+                "symfony/phpunit-bridge": "^5.4|^6.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FOS\\JsRoutingBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "will+git@drnd.me"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/friendsofsymfony/FOSJsRoutingBundle/contributors"
+                }
+            ],
+            "description": "A pretty nice way to expose your Symfony routing to client applications.",
+            "homepage": "http://friendsofsymfony.github.com",
+            "keywords": [
+                "Js Routing",
+                "javascript",
+                "routing"
+            ],
+            "support": {
+                "issues": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/issues",
+                "source": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/tree/3.1.1"
+            },
+            "time": "2022-03-02T16:49:12+00:00"
         },
         {
             "name": "jms/metadata",
@@ -3803,6 +3869,68 @@
             "time": "2022-04-01T08:04:06+00:00"
         },
         {
+            "name": "symfony/google-mailer",
+            "version": "v6.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/google-mailer.git",
+                "reference": "c84224b99e000a9c50591fa05e83852055431509"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/google-mailer/zipball/c84224b99e000a9c50591fa05e83852055431509",
+                "reference": "c84224b99e000a9c50591fa05e83852055431509",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.2",
+                "symfony/mailer": "^5.4|^6.0"
+            },
+            "type": "symfony-mailer-bridge",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Mailer\\Bridge\\Google\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Google Mailer Bridge",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/google-mailer/tree/v6.0.8"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-04-12T16:11:42+00:00"
+        },
+        {
             "name": "symfony/http-client",
             "version": "v6.0.7",
             "source": {
@@ -4227,16 +4355,16 @@
         },
         {
             "name": "symfony/mailer",
-            "version": "v6.0.7",
+            "version": "v6.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mailer.git",
-                "reference": "f7343f94e7afecca2ad840b078f9d80200e1bd27"
+                "reference": "706af6b3e99ebcbc639c9c664f5579aaa869409b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mailer/zipball/f7343f94e7afecca2ad840b078f9d80200e1bd27",
-                "reference": "f7343f94e7afecca2ad840b078f9d80200e1bd27",
+                "url": "https://api.github.com/repos/symfony/mailer/zipball/706af6b3e99ebcbc639c9c664f5579aaa869409b",
+                "reference": "706af6b3e99ebcbc639c9c664f5579aaa869409b",
                 "shasum": ""
             },
             "require": {
@@ -4281,7 +4409,7 @@
             "description": "Helps sending emails",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/mailer/tree/v6.0.7"
+                "source": "https://github.com/symfony/mailer/tree/v6.0.8"
             },
             "funding": [
                 {
@@ -4297,7 +4425,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-18T16:06:28+00:00"
+            "time": "2022-04-27T17:10:30+00:00"
         },
         {
             "name": "symfony/mime",
@@ -7569,6 +7697,49 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.10.0"
             },
             "time": "2021-03-09T10:59:23+00:00"
+        },
+        {
+            "name": "willdurand/jsonp-callback-validator",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/willdurand/JsonpCallbackValidator.git",
+                "reference": "738c36e91d4d7e0ff0cac145f77057e0fb88526e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/willdurand/JsonpCallbackValidator/zipball/738c36e91d4d7e0ff0cac145f77057e0fb88526e",
+                "reference": "738c36e91d4d7e0ff0cac145f77057e0fb88526e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JsonpCallbackValidator": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "will+git@drnd.me"
+                }
+            ],
+            "description": "JSONP callback validator.",
+            "support": {
+                "issues": "https://github.com/willdurand/JsonpCallbackValidator/issues",
+                "source": "https://github.com/willdurand/JsonpCallbackValidator/tree/v2.0.0"
+            },
+            "time": "2022-01-30T20:33:09+00:00"
         }
     ],
     "packages-dev": [

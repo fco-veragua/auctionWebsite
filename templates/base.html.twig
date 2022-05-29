@@ -68,7 +68,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light shadow">
 				<div class="container d-flex justify-content-between align-items-center">
 
-					<a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+					<a class="navbar-brand text-success logo h1 align-self-center" href="/">
 						auctionWebsite
 					</a>
 
@@ -80,45 +80,44 @@
 						<div class="flex-fill">
 							<ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
 								<li class="nav-item">
-									<a class="nav-link" href="index.html">Home</a>
+									<a class="nav-link" href="/">Home</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="about.html">About</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="shop.html">Shop</a>
-								</li>
-								<li class="nav-item">
 									<a class="nav-link" href="contact.html">Contact</a>
 								</li>
+								{% if app.user %}
+									<li class="nav-item">
+										<a href="/sell" class="btn btn-success btn-lg fw-bold text-white" role="button">Sell</a>
+									</li>
+								{% endif %}
 								<li class="nav-item">
-									<a href="/sell" class="btn btn-success btn-lg fw-bold text-white" role="button">Sell</a>
+									{{ app.user ? '<a href="/logout" class="btn btn-secondary btn-lg fw-bold text-white" role="button">Logout</a>' : '<a href="/login" class="btn btn-success btn-lg fw-bold text-white" role="button">Login</a>' }}
+								</li>
+								{% if not app.user %}
+									<li class="nav-item">
+										<a href="/register" class="btn btn-secondary btn-lg fw-bold text-white" role="button">Register</a>
+									</li>
+								{% endif %}
+							</ul>
+						</div>
+						<div class="navbar align-self-center d-flex dropdown">
+							<a class="nav-icon position-relative text-decoration-none dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+								<i class="fa fa-fw fa-user text-dark mr-3"></i>
+
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li>
+									<a class="dropdown-item" href="#">My Auctions</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="#">My Bids</a>
 								</li>
 							</ul>
 						</div>
-						<div class="navbar align-self-center d-flex">
-							<div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-								<div class="input-group">
-									<input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
-									<div class="input-group-text">
-										<i class="fa fa-fw fa-search"></i>
-									</div>
-								</div>
-							</div>
-							<a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
-								<i class="fa fa-fw fa-search text-dark mr-2"></i>
-							</a>
-							<a class="nav-icon position-relative text-decoration-none" href="#">
-								<i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-								<span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
-							</a>
-							<a class="nav-icon position-relative text-decoration-none" href="#">
-								<i class="fa fa-fw fa-user text-dark mr-3"></i>
-								<span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
-							</a>
-						</div>
 					</div>
-
 				</div>
 			</nav>
 		{% endblock %}
@@ -242,7 +241,7 @@
 							<div class="col-12">
 								<p class="text-left text-light">
 									Copyright &copy; 2021 Fco Veragua 
-																																																																																																																																																                            | Designed by
+																																																																																																																																																																																																																																																												                            | Designed by
 									<a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
 								</p>
 							</div>
