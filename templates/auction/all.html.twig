@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<section class="bg-light">
+		<div class="container py-5">
+			<div class="row text-center py-3">
+				<div
+					class="col-lg-6 m-auto">
+					{# ({{ auctions|length }}) #}
+					<h1 class="h1">All Auctions</h1>
+					{# counting array values #}
+				</div>
+			</div>
+			<div
+				class="row">
+				{# {% for auction in auctions|slice(-3) %} #}
+				{% for auction in auctions %}
+					{# {% if auction.startDate < auction.closingDate  %} #}
+					<div class="col-12 col-md-4 mb-4">
+						<div class="card h-100">
+							<a href="/auction/{{ auction.id }}">
+								<img src="./auctions/photos/{{ auction.photosName }}" class="card-img-top" alt="...">
+							</a>
+							<div class="card-body">
+								<ul class="list-unstyled d-flex justify-content-between">
+									<li>
+										<i class="text-warning fa fa-star"></i>
+										<i class="text-warning fa fa-star"></i>
+										<i class="text-warning fa fa-star"></i>
+										<i class="text-muted fa fa-star"></i>
+										<i class="text-muted fa fa-star"></i>
+									</li>
+									<li class="text-muted text-right">{{ auction.price }}$</li>
+								</ul>
+								<a href="/auction/{{ auction.id }}" class="h2 text-decoration-none text-dark">{{ auction.title }}</a>
+								<p class="card-text">
+									{{ auction.description }}
+								</p>
+								<p class="text-muted">State (
+									{{ auction.state }}
+									)</p>
+							</div>
+						</div>
+					</div>
+					{# {% else %} #}
+					{# {{ render (controller('App\\Controller\\AuctionController::delete', {'id': auction.id}))}} #}
+
+					{# {% endif %} #}
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	<!-- End Featured Product -->
+{% endblock %}

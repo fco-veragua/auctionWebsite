@@ -89,11 +89,14 @@
 								<li class="nav-item">
 									<a class="nav-link" href="/">Contact</a>
 								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="/all">Auctions</a>
+								</li>
 								{# {% if app.user %}
-																	<li class="nav-item">
-																		<a href="/sell" class="btn btn-success btn-lg fw-bold text-white" role="button">Sell</a>
-																	</li>
-																{% endif %} #}
+																																																	<li class="nav-item">
+																																																		<a href="/sell" class="btn btn-success btn-lg fw-bold text-white" role="button">Sell</a>
+																																																	</li>
+																																																{% endif %} #}
 								<li class="nav-item">
 									<a href="/sell" class="btn btn-success btn-lg fw-bold text" role="button">Sell</a>
 								</li>
@@ -108,18 +111,27 @@
 							</ul>
 						</div>
 						<div class="navbar align-self-center d-flex dropdown">
-							<a class="nav-icon position-relative text-decoration-none dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="#">
-								<i class="fa fa-fw fa-user text-dark mr-3"></i>
+							{% if app.user %}
+								<a class="nav-icon position-relative text-decoration-none dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+									<i class="fa fa-fw fa-user text-dark mr-3"></i>
 
-							</a>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<li>
-									<a class="dropdown-item" href="#">My Auctions</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="#">My Bids</a>
-								</li>
-							</ul>
+									{{ app.user.userName }}
+
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<li>
+										<a class="dropdown-item" href="/">My Auctions</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="/">My Bids</a>
+									</li>
+								</ul>
+							{% else %}
+								<a class="nav-icon position-relative text-decoration-none dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+									<i class="fa fa-fw fa-user text-dark mr-3"></i>
+
+								</a>
+							{% endif %}
 						</div>
 					</div>
 				</div>
@@ -227,7 +239,7 @@
 							<div class="col-12">
 								<p class="text-left text-light">
 									Copyright &copy; 2021 Fco Veragua 
-																																																																																																																																																																																																																																																																																							                            | Designed by
+																																																																																																																																																																																																																																																																																																																											                            | Designed by
 									<a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
 								</p>
 							</div>
