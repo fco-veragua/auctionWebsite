@@ -75,4 +75,22 @@ class UserAuctionRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    // /**
+    //  * @return UserAuction[]
+    //  */
+    // public function findTopBid(int $auction): array
+    // {
+    //     $entityManager = $this->getEntityManager();
+
+    //     $query = $entityManager->createQuery(
+    //         'SELECT b
+    //         FROM App\Entity\UserAuction b
+    //         JOIN App\Entity
+    //         WHERE a.closingDate <= CURRENT_TIMESTAMP()'
+    //     );
+
+    //     // returns an array of Product objects
+    //     return $query->getResult();
+    // }
 }

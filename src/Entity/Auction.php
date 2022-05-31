@@ -60,7 +60,7 @@ class Auction
     #[ORM\JoinColumn(nullable: false)]
     private $category;
 
-    #[ORM\OneToMany(mappedBy: 'auction', targetEntity: UserAuction::class)]
+    #[ORM\OneToMany(mappedBy: 'auction', targetEntity: UserAuction::class, cascade: ["remove"])]
     private $userAuctions;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'auctions')]

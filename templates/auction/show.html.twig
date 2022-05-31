@@ -144,46 +144,23 @@ document.getElementById("timer").innerHTML = "CLOSED";
 								<i class="fa fa-star text-warning"></i>
 								<i class="fa fa-star text-warning"></i>
 								<i class="fa fa-star text-secondary"></i>
-								<span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
+								<span class="list-inline-item text-dark">Badge</span>
 							</p>
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<h6>Brand:</h6>
-								</li>
-								<li class="list-inline-item">
-									<p class="text-muted">
-										<strong>Easy Wear</strong>
-									</p>
-								</li>
-							</ul>
 
 							<h6>Description:</h6>
 							<p>{{ auction.description }}</p>
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<h6>Avaliable Color :</h6>
-								</li>
-								<li class="list-inline-item">
-									<p class="text-muted">
-										<strong>White / Black</strong>
-									</p>
-								</li>
-							</ul>
+							<p class="text-muted">State (
+									{{ auction.state }}
+									)</p>
 
-							<h6>Specification:</h6>
-							<ul class="list-unstyled pb-3">
-								<li>Lorem ipsum dolor sit</li>
-								<li>Amet, consectetur</li>
-								<li>Adipiscing elit,set</li>
-								<li>Duis aute irure</li>
-								<li>Ut enim ad minim</li>
-								<li>Dolore magna aliqua</li>
-								<li>Excepteur sint</li>
-							</ul>
 							<div class="row pb-3">
-								<div class="col d-grid">
-									<a href="/bids/create/{{ auction.id }}" class="btn btn-success btn-lg fw-bold text-white" role="button">Bid Up</a>
-								</div>
+								{% if app.user and app.user.id != auction.user.id %}
+									<div class="col d-grid">
+										<a href="/bids/create/{{ auction.id }}" class="btn btn-success btn-lg fw-bold text-white" role="button">Bid Up</a>
+									</div>
+								{% endif %}
+
+								{% if app.user and app.user.id == auction.user.id %}
 								<div class="col d-grid">
 									{% set cat = '' %}
 
@@ -203,6 +180,7 @@ document.getElementById("timer").innerHTML = "CLOSED";
 								<div class="col d-grid">
 									<a href="/auction/delete/{{ auction.id }}" class="btn btn-danger btn-lg fw-bold text-white" role="button">Delete Auction</a>
 								</div>
+								{% endif %}
 							</div>
 						</div>
 					</div>

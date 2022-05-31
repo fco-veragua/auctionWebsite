@@ -75,4 +75,21 @@ class AuctionRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Auction[]
+     */
+    public function findClosing(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a
+            FROM App\Entity\Auction a
+            WHERE a.closingDate <= CURRENT_TIMESTAMP()'
+        );
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
 }
