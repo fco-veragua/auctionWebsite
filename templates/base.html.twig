@@ -40,9 +40,9 @@
 					<div class="w-100 d-flex justify-content-between">
 						<div>
 							<i class="fa fa-envelope mx-2"></i>
-							<a class="navbar-sm-brand text-light text-decoration-none" href="mailto:asir1.fvc@gmail.com">asir1.fvc@gmail.com</a>
+							<a class="navbar-sm-brand text-light text-decoration-none" href="mailto:asir1.fvc@gmail.com">franciscoveraguacabrera@gmail.com</a>
 							<i class="fa fa-phone mx-2"></i>
-							<a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+							<a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">111-111-111</a>
 						</div>
 						<div>
 							<a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored">
@@ -66,10 +66,11 @@
 
 			<!-- Header -->
 			<nav class="navbar navbar-expand-lg navbar-light shadow">
-				<div class="container d-flex justify-content-between align-items-center">
-
+				<div
+					class="container d-flex justify-content-between align-items-center">
+					{# <img class="img-fluid" src="{{ asset('assets/img/backgroundHammer2.svg') }}" alt=""> #}
 					<a class="navbar-brand text-success logo h1 align-self-center" href="/">
-						auctionWebsite
+						auctiWeb
 					</a>
 
 					<button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,16 +84,19 @@
 									<a class="nav-link" href="/">Home</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="about.html">About</a>
+									<a class="nav-link" href="/">About</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="contact.html">Contact</a>
+									<a class="nav-link" href="/">Contact</a>
 								</li>
-								{% if app.user %}
-									<li class="nav-item">
-										<a href="/sell" class="btn btn-success btn-lg fw-bold text-white" role="button">Sell</a>
-									</li>
-								{% endif %}
+								{# {% if app.user %}
+																	<li class="nav-item">
+																		<a href="/sell" class="btn btn-success btn-lg fw-bold text-white" role="button">Sell</a>
+																	</li>
+																{% endif %} #}
+								<li class="nav-item">
+									<a href="/sell" class="btn btn-success btn-lg fw-bold text" role="button">Sell</a>
+								</li>
 								<li class="nav-item">
 									{{ app.user ? '<a href="/logout" class="btn btn-secondary btn-lg fw-bold text-white" role="button">Logout</a>' : '<a href="/login" class="btn btn-success btn-lg fw-bold text-white" role="button">Login</a>' }}
 								</li>
@@ -130,19 +134,19 @@
 					<div class="row">
 
 						<div class="col-md-4 pt-5">
-							<h2 class="h2 text-success border-bottom pb-3 border-light logo">Auction Website</h2>
+							<h2 class="h2 text-success border-bottom pb-3 border-light logo">auctiWeb</h2>
 							<ul class="list-unstyled text-light footer-link-list">
 								<li>
 									<i class="fas fa-map-marker-alt fa-fw"></i>
-									123 Consectetur at ligula 10660
+									I.E.S. Luis Vélez de Guevara
 								</li>
 								<li>
 									<i class="fa fa-phone fa-fw"></i>
-									<a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+									<a class="text-decoration-none" href="tel:010-020-0340">111-111-111</a>
 								</li>
 								<li>
 									<i class="fa fa-envelope fa-fw"></i>
-									<a class="text-decoration-none" href="mailto:asir1.fvc@gmail.com">asir1.fvc@gmail.com</a>
+									<a class="text-decoration-none" href="mailto:asir1.fvc@gmail.com">franciscoveraguacabrera@gmail.com</a>
 								</li>
 							</ul>
 						</div>
@@ -151,25 +155,16 @@
 							<h2 class="h2 text-light border-bottom pb-3 border-light">Categories</h2>
 							<ul class="list-unstyled text-light footer-link-list">
 								<li>
-									<a class="text-decoration-none" href="#">Luxury</a>
+									<a class="text-decoration-none" href="#">Art</a>
 								</li>
 								<li>
-									<a class="text-decoration-none" href="#">Sport Wear</a>
+									<a class="text-decoration-none" href="#">Jewels</a>
 								</li>
 								<li>
-									<a class="text-decoration-none" href="#">Men's Shoes</a>
+									<a class="text-decoration-none" href="#">Books</a>
 								</li>
 								<li>
-									<a class="text-decoration-none" href="#">Women's Shoes</a>
-								</li>
-								<li>
-									<a class="text-decoration-none" href="#">Popular Dress</a>
-								</li>
-								<li>
-									<a class="text-decoration-none" href="#">Gym Accessories</a>
-								</li>
-								<li>
-									<a class="text-decoration-none" href="#">Sport Shoes</a>
+									<a class="text-decoration-none" href="#">Music</a>
 								</li>
 							</ul>
 						</div>
@@ -181,16 +176,7 @@
 									<a class="text-decoration-none" href="#">Home</a>
 								</li>
 								<li>
-									<a class="text-decoration-none" href="#">About Us</a>
-								</li>
-								<li>
-									<a class="text-decoration-none" href="#">Shop Locations</a>
-								</li>
-								<li>
-									<a class="text-decoration-none" href="#">FAQs</a>
-								</li>
-								<li>
-									<a class="text-decoration-none" href="#">Contact</a>
+									<a class="text-decoration-none" href="#">About</a>
 								</li>
 							</ul>
 						</div>
@@ -241,7 +227,7 @@
 							<div class="col-12">
 								<p class="text-left text-light">
 									Copyright &copy; 2021 Fco Veragua 
-																																																																																																																																																																																																																																																												                            | Designed by
+																																																																																																																																																																																																																																																																																							                            | Designed by
 									<a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
 								</p>
 							</div>

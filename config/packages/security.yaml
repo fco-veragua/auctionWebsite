@@ -36,7 +36,15 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/auction/create, roles: ROLE_USER }
+        - { path: ^/auction/createjewel, roles: ROLE_USER }
+        - { path: ^/auction/createbook, roles: ROLE_USER }
+        - { path: ^/auction/createmusic, roles: ROLE_USER }
+        - { path: ^/bids/create/, roles: ROLE_USER }
+        - { path: ^/auction/edit/, roles: ROLE_USER }
+        - { path: ^/auction/editjewel/', roles: ROLE_USER }
+        - { path: ^/auction/editbook/, roles: ROLE_USER }
+        - { path: ^/auction/editmusic/, roles: ROLE_USER }
 
 when@test:
     security:

@@ -21,6 +21,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Intl\Scripts;
+use Symfony\Component\Mime\Address;
 
 class AuctionController extends AbstractController
 {
@@ -48,6 +51,27 @@ class AuctionController extends AbstractController
         return $this->render('auction/index.html.twig', [
             'auctions' => $auctions
         ]);
+
+        // !!! missing add error if no auctions found (404...)
+    }
+
+    #[Route('/cron', methods: ['GET'], name: 'cron')]
+    public function cron(): Response
+    {
+        $auctions = $this->auctionRepository->findClosing();
+        foreach ($auctions as $auction) {
+
+
+            // $userAuctions = $auction->getUserAuctions();
+            // $this->toPersist->remove($userAuctions);
+            $this->toPersist->remove($auction);
+        }
+
+        $this->toPersist->flush();
+
+        // dd($auctions); // Filter the inner elements of doctrine
+
+        return new Response('Ok');
 
         // !!! missing add error if no auctions found (404...)
     }
@@ -333,6 +357,37 @@ class AuctionController extends AbstractController
     public function delete($id): Response
     {
         $auction = $this->auctionRepository->find($id);
+
+        // EXTRA 
+        //$userAuctions = $auction->getUserAuctions();
+        //$this->toPersist->remove($userAuctions);
+
+
+        $this->toPersist->remove($auction);
+        $this->toPersist->flush();
+
+        return $this->redirectToRoute('index');
+    }
+
+    // Delete AUCTION after closing and notify users
+    public function delclosing($id): Response
+    {
+        $auction = $this->auctionRepository->find($id);
+        $user = $auction->getUser();
+        $userAuctions = $auction->getUserAuctions();
+
+        // Here I must include the logic to send a message to the buyer and create a badge for the seller
+
+        // $this->emailVerifier->sendEmailConfirmation(
+        //     $user,
+        //     (new TemplatedEmail())
+        //         ->from(new Address('asir1.fvc@gmail.com', 'Auction Website Bot'))
+        //         ->to($user->getEmail())
+        //         ->subject('Please Confirm your Email')
+        //         ->htmlTemplate('auction/closingconfirmation_email.html.twig')
+        // );
+
+        $this->toPersist->remove($userAuctions);
         $this->toPersist->remove($auction);
         $this->toPersist->flush();
 
