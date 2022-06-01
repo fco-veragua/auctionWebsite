@@ -76,14 +76,14 @@ class AuctionController extends AbstractController
         $auctions = $this->auctionRepository->findClosing();
         foreach ($auctions as $auction) {
             $user = $auction->getUser();
-            $this->emailVerifier->sendEmailConfirmation(
-            $user,
-            (new TemplatedEmail())
-                ->from(new Address('asir1.fvc@gmail.com', 'Auction Website Bot'))
-                ->to($user->getEmail())
-                ->subject('Please Confirm your Email')
-                ->htmlTemplate('auction/closingconfirmation_email.html.twig')
-        );
+        //     $this->emailVerifier->sendEmailConfirmation(
+        //     $user,
+        //     (new TemplatedEmail())
+        //         ->from(new Address('asir1.fvc@gmail.com', 'Auction Website Bot'))
+        //         ->to($user->getEmail())
+        //         ->subject('Please Confirm your Email')
+        //         ->htmlTemplate('auction/closingconfirmation_email.html.twig')
+        // );
 
             // $userAuctions = $auction->getUserAuctions();
             // $this->toPersist->remove($userAuctions);
